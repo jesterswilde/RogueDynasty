@@ -8,7 +8,9 @@ public class GameManager : MonoBehaviour
     Config _config;
     public Config Config => _config;
     Player _player;
-    public Player Player => _player; 
+    public Player Player => _player;
+    Camera _camera;
+    public Camera Cam => _camera;
 
 
     
@@ -21,5 +23,8 @@ public class GameManager : MonoBehaviour
             return;
         }
         t = this;
+
+        _camera = FindFirstObjectByType<Camera>();
+        _player = FindFirstObjectByType<Player>();
     }
 }
