@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class Sliceable : MonoBehaviour
 {
+    public bool ShouldSlice = true; 
     [SerializeField]
     private bool _isSolid = true;
 
