@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
