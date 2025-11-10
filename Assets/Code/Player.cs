@@ -21,7 +21,7 @@ public class Player : MonoBehaviour {
         }
         if (x == 0 && y == 0)
             return;
-        transform.forward = new Vector3(x, 0, y).normalized;
+        transform.forward = (x * camRight +  y * camForward).normalized;
     }
     void Awake()
     {
