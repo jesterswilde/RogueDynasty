@@ -4,14 +4,10 @@ using Unity.Collections;
 using UnityEngine;
 
 public class Attacker : MonoBehaviour {
-    [SerializeField, ReadOnly]
     int _queuedAttack = -1;
-    [SerializeField, ReadOnly]
     int _curAttackI = -1;
-    [SerializeField, ReadOnly]
     int _curAttackBranch = -1;
     bool _isPlaying = false;
-    [SerializeField, ReadOnly]
     bool _isAcceptingInput = true;
     AttackDesc _curAttack;
     [SerializeField]
@@ -51,14 +47,15 @@ public class Attacker : MonoBehaviour {
         _isPlaying = true;
         _isAcceptingInput = false;
         _curAttack = attackList[_curAttackI];
+        Debug.Log($"Playing {_curAttack.AnimName} attackI {_curAttackI} | Branch {_curAttackBranch}");
         _anim.Play(_curAttack.AnimName);
         _animWatcher.OnAnimTime(_curAttack.AnimName, 0.5f, ()=>{
-            Debug.Log("OnClip Timer fired");
             _isAcceptingInput = true;
         });
         _animWatcher.OnAnimEnd(_curAttack.AnimName, PlayNextAttack);
     }
     void EndAttackChain() {
+        Debug.Log("Ending attack chain");
         _curAttackBranch = -1;
         _curAttackI = -1;
         _curAttack = null;
