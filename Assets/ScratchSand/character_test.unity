@@ -164,7 +164,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 8
   _jumpSpeed: 10
-  _health: 10
+  _maxHealth: 100
   _team: 0
   _groundDetector: {fileID: 611023306}
   _groundMask:
@@ -874,6 +874,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: inuyasha
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: f308caf04a1a4724699f1255665608cc, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: a9ce259ef68d53e479a3e692d5e97c78, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
