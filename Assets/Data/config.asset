@@ -12,7 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e7e5ceb32d82ca4d9eb11c9a8248d18, type: 3}
   m_Name: config
   m_EditorClassIdentifier: 
-  EnemyScanInterval: {x: 0, y: 0}
+  EnemyScanInterval: {x: 3, y: 5}
   EnemyScanMask:
     serializedVersion: 2
     m_Bits: 0
+  DesiredDistance: 3.37
+  RepulseAtDistance: 8.05
+  GroupForce: 0.36
+  RepulseForce: 1
+  TargetDrawForce: 1.4
