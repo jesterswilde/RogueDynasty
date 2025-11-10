@@ -4,8 +4,13 @@ using UnityEngine;
 public class Player : MonoBehaviour {
     Character _char;
     Animator _anim;
+    Attacker _attacker;
     public Character Char => _char;
     void Update() {
+        if (Input.GetMouseButtonDown(0))
+            _attacker.QueueAttack(0);
+        if (Input.GetMouseButtonDown(1))
+            _attacker.QueueAttack(1);
         var x = Input.GetAxisRaw("Horizontal");
         var y = Input.GetAxisRaw("Vertical");
         var camForward = GameManager.T.Cam.transform.forward;
@@ -27,7 +32,10 @@ public class Player : MonoBehaviour {
     {
         _char = GetComponent<Character>();
         _anim = GetComponentInChildren<Animator>();
+        _attacker = GetComponentInChildren<Attacker>();
         if (_anim == null)
             Debug.LogWarning($"Player doesn't ahve animator as achild");
+        if (_attacker == null)
+            Debug.LogWarning($"Player doesn't ahve attacker as achild or on it");
     }
 }

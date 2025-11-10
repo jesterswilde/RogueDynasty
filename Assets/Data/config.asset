@@ -16,9 +16,9 @@ MonoBehaviour:
   EnemyScanInterval: {x: 3, y: 5}
   EnemyScanMask:
     serializedVersion: 2
-    m_Bits: 65
-  DesiredDistance: 3.37
-  RepulseAtDistance: 8.05
-  GroupForce: 0.36
-  RepulseForce: 1
-  TargetDrawForce: 1.4
+    m_Bits: 193
+  DesiredDistance: 2
+  RepulseAtDistance: 8
+  GroupForce: 0.3
+  RepulseForce: 2
+  TargetDrawForce: 4

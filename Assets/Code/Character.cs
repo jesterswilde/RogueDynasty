@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -35,7 +36,7 @@ public class Character : MonoBehaviour, IHittable
     float _currentSlopeAngle;
     float _isDead;
 
-    public void OnHit(Attack attack) {
+    public void OnHit(AttackData attack) {
         if ((_team & attack.TeamMask) <= 0)
             return;
 
@@ -153,4 +154,32 @@ public class Character : MonoBehaviour, IHittable
             _groundDetector = GetComponentInChildren<Detector>();
         _health = _maxHealth;
     }
+}
+
+class SlicingBlade : MonoBehaviour {
+    [SerializeField]
+    LayerMask _mask;
+    Vector3 _lastPos = Vector3.zero;
+    HashSet<Sliceable> currentlySliced = new();
+    List<SlicingData> _slices = new();
+    public List<SlicingData> Slices => _slices;
+    void OnTriggerEnter(Collider other) {
+        if (!_mask.Contains(other.gameObject))
+            return;
+        var sliceable = other.gameObject.GetComponentInParent<Sliceable>();
+        if (sliceable == null)
+            sliceable = other.gameObject.GetComponent<Sliceable>();
+        if (sliceable == null)
+            return;
+        if (currentlySliced.Contains(sliceable))
+            return;
+    }
+    void Update() {
+        _lastPos = transform.position;
+    }
+}
+struct SlicingData {
+    Sliceable Sliced;
+    Vector3 Position;
+    Vector3 Up;
 }
