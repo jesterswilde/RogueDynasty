@@ -3,6 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(Character))]
 public class Player : MonoBehaviour {
     Character _char;
+    Animator _anim;
     public Character Char => _char;
     void Update() {
         var x = Input.GetAxisRaw("Horizontal");
@@ -14,6 +15,8 @@ public class Player : MonoBehaviour {
         _char.Move((x * camRight + y * camForward).normalized);
         if (Input.GetKeyDown(KeyCode.Space))
             _char.Jump();
+        _anim.SetFloat("forwardVelocity", y * _char.Speed);
+        _anim.SetFloat("horizontalVelocity", x * _char.Speed);
         if (x == 0 && y == 0)
             return;
         transform.forward = new Vector3(x, 0, y).normalized;
@@ -21,5 +24,8 @@ public class Player : MonoBehaviour {
     void Awake()
     {
         _char = GetComponent<Character>();
+        _anim = GetComponentInChildren<Animator>();
+        if (_anim == null)
+            throw new System.Exception($"Player doesn't ahve animator as achild");
     }
 }
