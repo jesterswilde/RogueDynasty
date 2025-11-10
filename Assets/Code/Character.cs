@@ -7,9 +7,11 @@ public class Character : MonoBehaviour, IHittable
     [Header("Stats")]
     [SerializeField]
     float _speed = 5f;
+    public float Speed { get => _speed; set => _speed = value; }
     [SerializeField]
     float _jumpSpeed = 7f;
     [SerializeField]
+    float _maxHealth = 100;
     float _health = 100f;
     [SerializeField]
     TeamMask _team;
@@ -33,14 +35,23 @@ public class Character : MonoBehaviour, IHittable
     float _currentSlopeAngle;
     float _isDead;
 
-    public void OnHit(Attack attack)
-    {
+    public void OnHit(Attack attack) {
         if ((_team & attack.TeamMask) <= 0)
             return;
 
         _health -= attack.Damage;
         if (_health <= 0)
             Die();
+    }
+    /// <summary>
+    /// Used for things like potions. if hit by attack, use onHit
+    /// </summar>
+    public void ModifyHealth(float amount) {
+        _health += amount;
+        if (_health < 0)
+            Die();
+        else
+            _health = Mathf.Min(_health, _maxHealth);
     }
 
     void Die() {
@@ -70,19 +81,7 @@ public class Character : MonoBehaviour, IHittable
         _isGrounded = false;
     }
 
-    void Awake()
-    {
-        _rigid = GetComponent<Rigidbody>();
-        _rigid.constraints = RigidbodyConstraints.FreezeRotation;
-        if (_groundDetector == null)
-            _groundDetector = GetComponentInChildren<Detector>();
-    }
 
-    void FixedUpdate()
-    {
-        UpdateGroundInfo();
-        HandleMovement();
-    }
 
     void UpdateGroundInfo()
     {
@@ -141,5 +140,17 @@ public class Character : MonoBehaviour, IHittable
             rbVel.z = desiredVel.z;
             _rigid.linearVelocity = rbVel;
         }
+    }
+
+    void FixedUpdate() {
+        UpdateGroundInfo();
+        HandleMovement();
+    }
+    void Awake() {
+        _rigid = GetComponent<Rigidbody>();
+        _rigid.constraints = RigidbodyConstraints.FreezeRotation;
+        if (_groundDetector == null)
+            _groundDetector = GetComponentInChildren<Detector>();
+        _health = _maxHealth;
     }
 }

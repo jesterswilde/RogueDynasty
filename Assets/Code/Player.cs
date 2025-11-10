@@ -3,6 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(Character))]
 public class Player : MonoBehaviour {
     Character _char;
+    public Character Char => _char;
     void Update() {
         var x = Input.GetAxisRaw("Horizontal");
         var y = Input.GetAxisRaw("Vertical");
