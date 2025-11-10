@@ -1,4 +1,4 @@
 public interface IHittable
 {
-    void OnHit(AttackData attack);
+    void GotHitBy(AttackData attack);
 }

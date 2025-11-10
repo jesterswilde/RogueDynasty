@@ -74,7 +74,3 @@ public class Attacker : MonoBehaviour {
         _animWatcher = GetComponentInChildren<AnimWatcher>();
     }
 }
-public struct AttackData {
-    public TeamMask TeamMask;
-    public float Damage;
-}

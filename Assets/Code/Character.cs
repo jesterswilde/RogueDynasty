@@ -1,6 +1,8 @@
 using System;
-using System.Collections.Generic;
+using Assets.Scripts;
+using UnityEditor.Analytics;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Character : MonoBehaviour, IHittable
@@ -14,8 +16,6 @@ public class Character : MonoBehaviour, IHittable
     [SerializeField]
     float _maxHealth = 100;
     float _health = 100f;
-    [SerializeField]
-    TeamMask _team;
 
     [Header("Ground & Slopes")]
     [SerializeField]
@@ -28,6 +28,7 @@ public class Character : MonoBehaviour, IHittable
     float _slopeDegree = 45f;
     [SerializeField, Range(0f, 1f)]
     float _minSlopeSpeedFactor = 0.6f;
+    Sliceable _sliceable;
 
     Rigidbody _rigid;
     Vector3 _moveInput;
@@ -36,10 +37,7 @@ public class Character : MonoBehaviour, IHittable
     float _currentSlopeAngle;
     float _isDead;
 
-    public void OnHit(AttackData attack) {
-        if ((_team & attack.TeamMask) <= 0)
-            return;
-
+    public void GotHitBy(AttackData attack) {
         _health -= attack.Damage;
         if (_health <= 0)
             Die();
@@ -56,7 +54,11 @@ public class Character : MonoBehaviour, IHittable
     }
 
     void Die() {
-        throw new NotImplementedException();
+
+    }
+    void Die(Plane plane) {
+        var localPlane = Slicer.WorldToLocalPlane(plane, _sliceable.transform);
+        Slicer.Slice(localPlane, _sliceable.gameObject);
     }
 
     /// <summary>
@@ -153,33 +155,6 @@ public class Character : MonoBehaviour, IHittable
         if (_groundDetector == null)
             _groundDetector = GetComponentInChildren<Detector>();
         _health = _maxHealth;
+        _sliceable = GetComponentInChildren<Sliceable>();
     }
-}
-
-class SlicingBlade : MonoBehaviour {
-    [SerializeField]
-    LayerMask _mask;
-    Vector3 _lastPos = Vector3.zero;
-    HashSet<Sliceable> currentlySliced = new();
-    List<SlicingData> _slices = new();
-    public List<SlicingData> Slices => _slices;
-    void OnTriggerEnter(Collider other) {
-        if (!_mask.Contains(other.gameObject))
-            return;
-        var sliceable = other.gameObject.GetComponentInParent<Sliceable>();
-        if (sliceable == null)
-            sliceable = other.gameObject.GetComponent<Sliceable>();
-        if (sliceable == null)
-            return;
-        if (currentlySliced.Contains(sliceable))
-            return;
-    }
-    void Update() {
-        _lastPos = transform.position;
-    }
-}
-struct SlicingData {
-    Sliceable Sliced;
-    Vector3 Position;
-    Vector3 Up;
 }

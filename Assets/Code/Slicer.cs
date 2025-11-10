@@ -92,5 +92,32 @@ namespace Assets.Scripts
             var rb = gameObject.AddComponent<Rigidbody>();
             rb.useGravity = useGravity;
         }
+        public static Plane CreatePlaneFromPoints(Vector3 p1, Vector3 p2, Vector3 p3)
+        {
+            // Compute the plane's normal using cross product
+            Vector3 side1 = p2 - p1;
+            Vector3 side2 = p3 - p1;
+            Vector3 normal = Vector3.Cross(side1, side2).normalized;
+
+            // Create a plane passing through p3
+            Plane plane = new Plane(normal, p3);
+            return plane;
+        }
+        public static Plane WorldToLocalPlane(Plane worldPlane, Transform target)
+        {
+            // Transform the normal into local space
+            Vector3 localNormal = target.InverseTransformDirection(worldPlane.normal).normalized;
+
+            // Any point on the plane in world space:
+            // For Unity Plane: normal·p + distance = 0 => p = -normal * distance
+            Vector3 worldPointOnPlane = -worldPlane.normal * worldPlane.distance;
+
+            // Transform that point into local space
+            Vector3 localPoint = target.InverseTransformPoint(worldPointOnPlane);
+
+            // Rebuild the plane in local space
+            Plane localPlane = new Plane(localNormal, localPoint);
+            return localPlane;
+        }
     }
 }
