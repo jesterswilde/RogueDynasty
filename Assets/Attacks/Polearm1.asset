@@ -18,3 +18,4 @@ MonoBehaviour:
   isHoldable: 0
   endsCombo: 0
   isLoopable: 1
+  Stuns: 1

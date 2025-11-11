@@ -10,6 +10,8 @@ public class Player : MonoBehaviour {
         UIManager.T.UpdateHealth(health, _char.MaxHealth);
     }
     void Update() {
+        if (_char.IsStunned || _char.IsDead)
+            return;
         if (Input.GetMouseButtonDown(0))
             _attacker.QueueAttack(0);
         if (Input.GetMouseButtonDown(1))

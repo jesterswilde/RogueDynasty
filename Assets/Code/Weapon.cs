@@ -14,18 +14,18 @@ public class Weapon : MonoBehaviour {
     LayerMask _mask;
     Vector3 _lastPos = Vector3.zero;
     HashSet<Sliceable> currentlySliced = new();
-    List<IHittable> _slices = new();
-    public List<IHittable> Slices => _slices;
+    List<IHittable> _alreadyHit = new();
+    public List<IHittable> Slices => _alreadyHit;
     public void SetAttack(AttackDesc attack) {
         _curAttack = attack;
-        _slices = new();
+        _alreadyHit = new();
     }
     void OnTriggerEnter(Collider other) {
         if (_curAttack == null)
             return;
         if (!_mask.Contains(other.gameObject))
             return;
-        var hittables = other.gameObject.GetComponentsInParent<Component>().Where(c => c is IHittable).Select(c => c as IHittable);
+        var hittables = other.gameObject.GetComponentsInParent<Component>().Where(c => c is IHittable).Select(c => c as IHittable).Where(h => !_alreadyHit.Contains(h));
         if (hittables.Count() == 0)
             return;
         var attackData = new AttackData {
@@ -33,7 +33,8 @@ public class Weapon : MonoBehaviour {
             HitPlane = Slicer.CreatePlaneFromPoints(_attackPoint.position, _attackPoint.position + _attackPoint.up, _lastPos),
             HitPosition = _attackPoint.position,
             HitDirection = (_attackPoint.position - _lastPos).normalized,
-            FromOrigin = (_attackPoint.position - _origin.transform.position).normalized
+            FromOrigin = (_attackPoint.position - _origin.transform.position).normalized,
+            Attack = _curAttack
         };
         //var xMin = Mathf.Min(a.x, Mathf.Min(b.x, c.x));
         //var yMin = Mathf.Min(a.y, Mathf.Min(b.y, c.y));
@@ -42,7 +43,8 @@ public class Weapon : MonoBehaviour {
         //var yMax = Mathf.Max(a.y, Mathf.Max(b.y, c.y));
         //var zMax = Mathf.Max(a.z, Mathf.Max(b.z, c.z));
         //Debug.Log($"{xMax - xMin} {yMax - yMin} {zMax - zMin}");
-        foreach(var h in hittables) {
+        foreach (var h in hittables) {
+            _alreadyHit.Add(h);
             h.GotHitBy(attackData);
         }
     }

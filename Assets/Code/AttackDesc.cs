@@ -8,4 +8,5 @@ public class AttackDesc: ScriptableObject {
     public bool isHoldable;
     public bool endsCombo;
     public bool isLoopable;
+    public bool Stuns;
 }

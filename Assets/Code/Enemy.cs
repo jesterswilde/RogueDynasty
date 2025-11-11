@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using NUnit.Framework;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
@@ -285,6 +286,15 @@ public class Enemy : MonoBehaviour {
         if (_swarmingCo != null)
             StopCoroutine(_swarmingCo);
     }
+    void OnStun() {
+        _agent.speed = 0;
+        _agent.ResetPath();
+        _agent.enabled = false;
+    }
+    void OnStunOver() {
+        _agent.speed = _char.Speed;
+        _agent.enabled = true;
+    }
 
     void Start() {
         _squad = GetComponentInParent<Squad>();
@@ -293,6 +303,8 @@ public class Enemy : MonoBehaviour {
         else
             _squad.RegisterUnit(this);
         _char.OnDeath += Die;
+        _char.OnStun += OnStun;
+        _char.OnStunEnd += OnStunOver;
     }
 
     void Awake() {

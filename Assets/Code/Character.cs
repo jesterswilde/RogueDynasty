@@ -1,8 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EzySlice;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -19,18 +19,27 @@ public class Character : MonoBehaviour, IHittable {
     [SerializeField]
     float _health;
     public float Health => _health;
+    Attacker _attacker;
+    Animator _anim;
+    AnimWatcher _animWatcher;
     public event Action OnDeath;
     public event Action<float> OnHealthChange;
+    public event Action OnStun;
+    public event Action OnStunEnd;
     Weapon _weapon;
     public Weapon Weapon => _weapon;
 
     [Header("Ground & Slopes")]
-    [SerializeField] Detector _groundDetector;
-    [SerializeField] LayerMask _groundMask = ~0;
-    [SerializeField] float _groundCheckDistance = 0.5f;
-    [SerializeField] float _slopeDegree = 45f;
-    [SerializeField, Range(0f, 1f)] float _minSlopeSpeedFactor = 0.6f;
-    Sliceable _sliceable;
+    [SerializeField]
+    Detector _groundDetector;
+    [SerializeField]
+    LayerMask _groundMask = ~0;
+    [SerializeField]
+    float _groundCheckDistance = 0.5f;
+    [SerializeField] 
+    float _slopeDegree = 45f;
+    [SerializeField, Range(0f, 1f)]
+    float _minSlopeSpeedFactor = 0.6f;
     Vector3 _pos3;
     Vector3 _pos2;
     Vector3 _pos1;
@@ -42,13 +51,50 @@ public class Character : MonoBehaviour, IHittable {
     Vector3 _groundNormal = Vector3.up;
     float _currentSlopeAngle;
     bool _isDead;
+    bool _isStunned;
+    public bool IsStunned => _isStunned;
+    List<(float, float)> _recentDamage = new();
+    [SerializeField]
+    float _damageNeededForStun = 0.15f;
+    [SerializeField]
+    float _damangeStackingDuration = 2f;
+
+
     public bool IsDead => _isDead;
 
     public void GotHitBy(AttackData attack) {
         _health -= attack.Damage;
+        Debug.Log($"{name} got hit by {attack.Attack.name} {_health} {attack.Damage}");
+        _recentDamage.Add((_health, Time.time));
+        HandleStun(attack);
         OnHealthChange?.Invoke(_health);
         if (_health <= 0)
             Die(attack);
+    }
+
+    void HandleStun(AttackData attack) {
+        if (_isStunned)
+            return;
+        _isStunned = attack.Attack.Stuns;
+        if (!_isStunned) {
+            var now = Time.time;
+            for(int i = _recentDamage.Count - 1; i >= 0; i--) {
+                var invalid = (_recentDamage[i].Item2 - (now - _damangeStackingDuration)) < 0;
+                if (invalid)
+                    _recentDamage.RemoveAt(i);
+            }
+            var totalDamage = _recentDamage.Aggregate(0f, (a, b) => a + b.Item1);
+            _isStunned = totalDamage / _maxHealth > _damageNeededForStun;
+        }
+        if (_isStunned) {
+            _attacker.Interrupt();
+            _anim.Play("isHit");
+            _animWatcher.OnAnimEnd("isHit", StunOver);
+        }
+    }
+    void StunOver() {
+        _isStunned = false;
+        _attacker.ForceAcceptInput();
     }
 
     public void ModifyHealth(float amount) {
@@ -241,7 +287,9 @@ public class Character : MonoBehaviour, IHittable {
         if (_groundDetector == null)
             _groundDetector = GetComponentInChildren<Detector>();
         _health = _maxHealth;
-        _sliceable = GetComponentInChildren<Sliceable>();
+        _attacker = GetComponent<Attacker>();
+        _anim = GetComponentInChildren<Animator>();
+        _animWatcher = GetComponentInChildren<AnimWatcher>();
         _weapon = GetComponentInChildren<Weapon>();
     }
 }
