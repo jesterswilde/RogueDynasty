@@ -256,7 +256,7 @@ MonoBehaviour:
   _attackPoint: {fileID: 6183089976019708442}
   _mask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 640
 --- !u!1 &5287138375274649715
 GameObject:
   m_ObjectHideFlags: 0
@@ -598,6 +598,7 @@ MonoBehaviour:
   _speed: 8
   _jumpSpeed: 10
   _maxHealth: 100
+  _health: 0
   _groundDetector: {fileID: 7988604255726257015}
   _groundMask:
     serializedVersion: 2

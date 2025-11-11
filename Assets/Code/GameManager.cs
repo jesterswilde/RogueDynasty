@@ -8,6 +8,9 @@ public class GameManager : MonoBehaviour
     public static GameManager T => t;
     [SerializeField]
     Config _config;
+    [SerializeField]
+    Material _innards;
+    public Material Innards => _innards;
     public Config Config => _config;
     Player _player;
     public Player Player => _player;
