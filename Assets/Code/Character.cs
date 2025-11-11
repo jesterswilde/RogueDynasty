@@ -15,9 +15,12 @@ public class Character : MonoBehaviour, IHittable {
     float _jumpSpeed = 7f;
     [SerializeField]
     float _maxHealth = 100f;
+    public float MaxHealth => _maxHealth;
     [SerializeField]
     float _health;
+    public float Health => _health;
     public event Action OnDeath;
+    public event Action<float> OnHealthChange;
     Weapon _weapon;
     public Weapon Weapon => _weapon;
 
@@ -43,7 +46,7 @@ public class Character : MonoBehaviour, IHittable {
 
     public void GotHitBy(AttackData attack) {
         _health -= attack.Damage;
-        Debug.Log($"GOT HIT {_health} {attack.Damage}");
+        OnHealthChange?.Invoke(_health);
         if (_health <= 0)
             Die(attack);
     }
@@ -54,6 +57,7 @@ public class Character : MonoBehaviour, IHittable {
             Die();
         else
             _health = Mathf.Min(_health, _maxHealth);
+        OnHealthChange?.Invoke(_health);
     }
 
     void Die() {
@@ -66,7 +70,7 @@ public class Character : MonoBehaviour, IHittable {
     void Die(AttackData data) {
         if (_isDead) return;
         _isDead = true;
-        var pos = transform.position;
+        OnDeath?.Invoke();
         var agent = GetComponent<NavMeshAgent>();
         if (agent != null) {
             agent.ResetPath();

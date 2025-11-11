@@ -284,8 +284,6 @@ public class Enemy : MonoBehaviour {
             StopCoroutine(_scanCo);
         if (_swarmingCo != null)
             StopCoroutine(_swarmingCo);
-        Destroy(_agent);
-        Destroy(_anim);
     }
 
     void Start() {

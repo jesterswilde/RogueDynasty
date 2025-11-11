@@ -6,6 +6,9 @@ public class Player : MonoBehaviour {
     Animator _anim;
     Attacker _attacker;
     public Character Char => _char;
+    void UpdateHealthUI(float health) {
+        UIManager.T.UpdateHealth(health, _char.MaxHealth);
+    }
     void Update() {
         if (Input.GetMouseButtonDown(0))
             _attacker.QueueAttack(0);
@@ -20,12 +23,16 @@ public class Player : MonoBehaviour {
         _char.Move((x * camRight + y * camForward).normalized);
         if (Input.GetKeyDown(KeyCode.Space))
             _char.Jump();
-        if(_anim != null) {
-            _anim.SetFloat("forwardVelocity", Mathf.Max(Mathf.Abs(y),Mathf.Abs(x)) * _char.Speed);
+        if (_anim != null) {
+            _anim.SetFloat("forwardVelocity", Mathf.Max(Mathf.Abs(y), Mathf.Abs(x)) * _char.Speed);
         }
         if (x == 0 && y == 0)
             return;
-        transform.forward = (x * camRight +  y * camForward).normalized;
+        transform.forward = (x * camRight + y * camForward).normalized;
+    }
+    void Start() {
+        UpdateHealthUI(_char.MaxHealth);
+        _char.OnHealthChange += UpdateHealthUI;
     }
     void Awake()
     {

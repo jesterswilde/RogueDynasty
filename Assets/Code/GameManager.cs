@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -40,34 +39,5 @@ public class GameManager : MonoBehaviour
         _camera = FindFirstObjectByType<Camera>();
         _player = FindFirstObjectByType<Player>();
         _kill = 0;
-    }
-}
-
-public class UIManager : MonoBehaviour {
-    static UIManager t;
-    public static UIManager T => t;
-    [SerializeField]
-    Image _healtHBar;
-    [SerializeField]
-    TMPro.TextMeshProUGUI _killCount;
-    void UpdateKillCount(int count) {
-        _killCount.text = count.ToString();
-    }
-    public void UpdateHealth(int health, int maxHealth) {
-        _healtHBar.fillAmount = (float)health / (float)maxHealth;
-    }
-
-
-    void Start() {
-        GameManager.T.OnKill += UpdateKillCount;
-    }
-    void Awake() {
-        if (t != null)
-        {
-            Destroy(this);
-            Debug.LogWarning($"Multiple Game Managers, one on {name}");
-            return;
-        }
-        t = this;
     }
 }
