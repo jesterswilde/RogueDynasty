@@ -142,6 +142,7 @@ GameObject:
   - component: {fileID: 673002399504797958}
   - component: {fileID: 8928975414521601161}
   - component: {fileID: 5821222855477753958}
+  - component: {fileID: 3420794399244166184}
   m_Layer: 0
   m_Name: hitbox
   m_TagString: Untagged
@@ -158,8 +159,8 @@ Transform:
   m_GameObject: {fileID: 3556507812856928289}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.79503375, z: 0}
-  m_LocalScale: {x: 7.3619285, y: 0.8208742, z: 7.365424}
+  m_LocalPosition: {x: -0, y: 0.614, z: -0}
+  m_LocalScale: {x: 7.3619285, y: 0.8900811, z: 7.365424}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6000748524135328917}
@@ -179,7 +180,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3556507812856928289}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -240,6 +241,22 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &3420794399244166184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3556507812856928289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 411bc953278f44544ba6f381b683881a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _attackPoint: {fileID: 6183089976019708442}
+  _mask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &5287138375274649715
 GameObject:
   m_ObjectHideFlags: 0
@@ -299,8 +316,8 @@ Transform:
   m_GameObject: {fileID: 6098398455964060594}
   serializedVersion: 2
   m_LocalRotation: {x: -0.013668204, y: 0.012545198, z: 0.6760834, w: 0.7365916}
-  m_LocalPosition: {x: -0.581, y: 0.181, z: -0.008}
-  m_LocalScale: {x: 0.037592974, y: 0.7201128, z: 0.037592974}
+  m_LocalPosition: {x: -0.77226, y: 0.19766, z: -0.0083957}
+  m_LocalScale: {x: 0.037592974, y: 0.9995041, z: 0.037592974}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6183089976019708442}
@@ -376,7 +393,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5000001
   m_Height: 2
@@ -556,11 +573,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _basicAttacks:
-  - {fileID: 11400000, guid: 29bf2180d931de7479fb53d497a9f7cc, type: 2}
-  - {fileID: 11400000, guid: 1c171db29c70ad141961ac9f73dde06f, type: 2}
+  - {fileID: 11400000, guid: 88382538416866840b8f45b7cc3255fa, type: 2}
+  - {fileID: 11400000, guid: c255e963b7dc1cf4c86cba7400aa518a, type: 2}
+  - {fileID: 11400000, guid: 3982838f863ff8046950da72590a6e3a, type: 2}
+  - {fileID: 11400000, guid: d4af6cdc616231946ab8221e80872853, type: 2}
+  - {fileID: 11400000, guid: 88382538416866840b8f45b7cc3255fa, type: 2}
   _powerAttacks:
+  - {fileID: 11400000, guid: 29bf2180d931de7479fb53d497a9f7cc, type: 2}
+  - {fileID: 11400000, guid: b9e698c140ac7d64eb6d6dd483e295e9, type: 2}
+  - {fileID: 11400000, guid: 6720bd07efaa3f940b289936488a5b59, type: 2}
   - {fileID: 11400000, guid: 2ca1eebe99ddeb6478ec5c9f303a6577, type: 2}
-  - {fileID: 11400000, guid: 858953ea4332ae64d880082599fc0d8e, type: 2}
 --- !u!114 &772414380885354417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -576,7 +598,6 @@ MonoBehaviour:
   _speed: 8
   _jumpSpeed: 10
   _maxHealth: 100
-  _team: 1
   _groundDetector: {fileID: 7988604255726257015}
   _groundMask:
     serializedVersion: 2
@@ -659,6 +680,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8004652077662499364, guid: f308caf04a1a4724699f1255665608cc, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 68c60799684a94e4093b46a52d31dfea, type: 2}
+    - target: {fileID: -8004652077662499364, guid: f308caf04a1a4724699f1255665608cc, type: 3}
+      propertyPath: 'm_Materials.Array.data[2]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 68c60799684a94e4093b46a52d31dfea, type: 2}
+    - target: {fileID: -8004652077662499364, guid: f308caf04a1a4724699f1255665608cc, type: 3}
+      propertyPath: 'm_Materials.Array.data[3]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 68c60799684a94e4093b46a52d31dfea, type: 2}
     - target: {fileID: 919132149155446097, guid: f308caf04a1a4724699f1255665608cc, type: 3}
       propertyPath: m_Name
       value: inuyasha
