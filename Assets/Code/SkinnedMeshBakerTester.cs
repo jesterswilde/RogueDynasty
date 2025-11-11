@@ -45,10 +45,8 @@ public class SkinnedMeshBakerTester : MonoBehaviour
         }
 
         // This call must run on the main thread.
-        bakedObjects = SkinnedMeshBaker.BakeSkinnedHierarchyToStatic(
-            rootObject,
-            copyMaterials,
-            disableOriginalSkinnedRenderers
+        bakedObjects = SkinnedMeshBaker.BakeHiearchy(
+            rootObject
         );
 
         _hasRun = true;

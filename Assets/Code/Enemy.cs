@@ -5,7 +5,6 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(Character), typeof(NavMeshAgent))]
 public class Enemy : MonoBehaviour
 {
     [SerializeField]
@@ -209,6 +208,8 @@ public class Enemy : MonoBehaviour
     }
 
     void Update() {
+        if (_char.IsDead)
+            return;
         if (_anim != null && _agent != null) {
             Vector3 localVel = transform.InverseTransformDirection(_agent.velocity);
             //_anim.SetFloat("forwardVelocity", localVel.z);
@@ -217,7 +218,14 @@ public class Enemy : MonoBehaviour
     }
 
     void Die() {
+        Debug.Log("Enemy called die");
         GameManager.T.Kill++;
+        if (_scanCo != null)
+            StopCoroutine(_scanCo);
+        if (_swarmingCo != null)
+            StopCoroutine(_swarmingCo);
+        Destroy(_agent);
+        Destroy(_anim);
     }
 
     void Start() {

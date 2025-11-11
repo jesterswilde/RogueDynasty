@@ -1,124 +1,52 @@
-using System;
-using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public static class SkinnedMeshBaker
 {
     /// <summary>
-    /// Bakes all SkinnedMeshRenderers under <paramref name="root"/> into
-    /// static MeshRenderers whose vertices are in **world space**.
-    ///
-    /// Each returned GameObject:
-    /// - Has identity transform (position=0, rotation=identity, scale=1).
-    /// - Renders at the same world-space pose as the SkinnedMeshRenderer at bake time.
-    /// - Is NOT parented under root (they live at scene root).
+    /// Bakes the current pose of a SkinnedMeshRenderer into a new Mesh and
+    /// returns a new GameObject with a MeshFilter + MeshRenderer.
+    /// 
+    /// The returned GameObject:
+    /// - Has no parent (is at the root of the hierarchy)
+    /// - Appears in the exact same world position, rotation, and pose
+    /// - Copies the materials from the original SkinnedMeshRenderer
     /// </summary>
-    public static GameObject[] BakeSkinnedHierarchyToStatic(
-        GameObject root,
-        bool copyMaterials = true,
-        bool disableOriginalSkinnedRenderers = false)
-    {
-        if (root == null)
-            throw new ArgumentNullException(nameof(root));
-
-        SkinnedMeshRenderer[] skinnedRenderers =
-            root.GetComponentsInChildren<SkinnedMeshRenderer>(includeInactive: false);
-
-        List<GameObject> bakedObjects = new List<GameObject>(skinnedRenderers.Length);
-
-        foreach (var smr in skinnedRenderers)
+    public static GameObject Bake(SkinnedMeshRenderer skinnedMeshRenderer) {
+        if (skinnedMeshRenderer == null)
         {
-            if (smr == null || smr.sharedMesh == null)
-                continue;
-
-            // 1. Bake the skinned mesh in its current pose
-            Mesh bakedMesh = new Mesh
-            {
-                name = smr.sharedMesh.name + "_Baked"
-            };
-
-            // Version-agnostic: default overload, vertices relative to smr.transform
-            smr.BakeMesh(bakedMesh);
-
-            // 2. Convert baked vertices (and normals/tangents) into WORLD space
-            Matrix4x4 localToWorld = smr.transform.localToWorldMatrix;
-
-            Vector3[] verts   = bakedMesh.vertices;
-            Vector3[] normals = bakedMesh.normals;
-            Vector4[] tangents = bakedMesh.tangents;
-
-            for (int i = 0; i < verts.Length; i++)
-            {
-                verts[i] = localToWorld.MultiplyPoint3x4(verts[i]);
-            }
-
-            if (normals != null && normals.Length == verts.Length)
-            {
-                for (int i = 0; i < normals.Length; i++)
-                {
-                    normals[i] = localToWorld.MultiplyVector(normals[i]).normalized;
-                }
-            }
-
-            if (tangents != null && tangents.Length == verts.Length)
-            {
-                for (int i = 0; i < tangents.Length; i++)
-                {
-                    Vector4 t = tangents[i];
-                    Vector3 t3 = new Vector3(t.x, t.y, t.z);
-                    t3 = localToWorld.MultiplyVector(t3).normalized;
-                    tangents[i] = new Vector4(t3.x, t3.y, t3.z, t.w);
-                }
-            }
-
-            bakedMesh.vertices = verts;
-            if (normals != null && normals.Length == verts.Length)
-                bakedMesh.normals = normals;
-            if (tangents != null && tangents.Length == verts.Length)
-                bakedMesh.tangents = tangents;
-
-            bakedMesh.RecalculateBounds();
-
-            // 3. Create a new GameObject for the baked mesh
-            GameObject bakedGo = new GameObject(smr.gameObject.name + "_Static");
-            Transform bakedTransform = bakedGo.transform;
-
-            // Identity transform so local space == world space
-            bakedTransform.position = Vector3.zero;
-            bakedTransform.rotation = Quaternion.identity;
-            bakedTransform.localScale = Vector3.one;
-
-            // NOTE: we intentionally do NOT parent it under root,
-            // to keep the transform identity and avoid re-introducing
-            // hierarchical scaling/rotation.
-            bakedTransform.SetParent(null, worldPositionStays: false);
-
-            // 4. Add MeshFilter + MeshRenderer
-            MeshFilter mf = bakedGo.AddComponent<MeshFilter>();
-            mf.sharedMesh = bakedMesh;
-
-            MeshRenderer mr = bakedGo.AddComponent<MeshRenderer>();
-            if (copyMaterials)
-            {
-                mr.sharedMaterials = smr.sharedMaterials;
-            }
-
-            bakedObjects.Add(bakedGo);
-
-            if (disableOriginalSkinnedRenderers)
-            {
-                smr.enabled = false;
-            }
+            Debug.LogError("SkinnedMeshBaker.Bake: skinnedMeshRenderer is null.");
+            return null;
         }
 
-        return bakedObjects.ToArray();
-    }
+        // 1. Bake the skinned mesh into a new Mesh
+        Mesh bakedMesh = new Mesh();
+        skinnedMeshRenderer.BakeMesh(bakedMesh);
 
-    /// <summary>
-    /// Kept for compatibility; just forwards to BakeSkinnedHierarchyToStatic.
-    /// </summary>
-    public static GameObject[] BakeSkinnedHierarchyToStaticSafeForThreads(GameObject root)
-    {
-        return BakeSkinnedHierarchyToStatic(root);
+        // 2. Create a new GameObject to hold the baked mesh
+        GameObject bakedObject = new GameObject(skinnedMeshRenderer.name + "_Baked");
+
+        // Ensure it has no parent
+        bakedObject.transform.SetParent(null, worldPositionStays: false);
+
+        // 3. Match world-space transform
+        Transform originalTransform = skinnedMeshRenderer.transform;
+        bakedObject.transform.position = originalTransform.position;
+        bakedObject.transform.rotation = originalTransform.rotation;
+
+        // Use lossyScale so the world-space scale matches even if the original had parents
+        bakedObject.transform.localScale = originalTransform.lossyScale;
+
+        // 4. Add MeshFilter and MeshRenderer and assign the baked mesh & materials
+        MeshFilter meshFilter = bakedObject.AddComponent<MeshFilter>();
+        meshFilter.sharedMesh = bakedMesh;
+
+        MeshRenderer meshRenderer = bakedObject.AddComponent<MeshRenderer>();
+        meshRenderer.sharedMaterials = skinnedMeshRenderer.sharedMaterials;
+
+        return bakedObject;
+    }
+    public static GameObject[] BakeHiearchy(GameObject go) {
+        return go.GetComponentsInChildren<SkinnedMeshRenderer>().Select(s => Bake(s)).ToArray();
     }
 }

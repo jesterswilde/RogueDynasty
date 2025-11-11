@@ -18,6 +18,7 @@ public class Weapon : MonoBehaviour {
     public List<IHittable> Slices => _slices;
     public void SetAttack(AttackDesc attack) {
         _curAttack = attack;
+        _slices = new();
     }
     void OnTriggerEnter(Collider other) {
         Debug.Log($"collision entering {other.name}");
@@ -28,10 +29,6 @@ public class Weapon : MonoBehaviour {
         var hittables = other.gameObject.GetComponentsInParent<Component>().Where(c => c is IHittable).Select(c => c as IHittable);
         if (hittables.Count() == 0)
             return;
-        var a = _attackPoint.position;
-        var b = _attackPoint.position + _attackPoint.up;
-        var c = _lastPos;
-        Debug.Log($"{_attackPoint.position} {_lastPos}");
         var attackData = new AttackData {
             Damage = _curAttack.Damage,
             HitPlane = Slicer.CreatePlaneFromPoints(_attackPoint.position, _attackPoint.position + _attackPoint.up, _lastPos),
@@ -49,8 +46,6 @@ public class Weapon : MonoBehaviour {
         foreach(var h in hittables) {
             h.GotHitBy(attackData);
         }
-        
-        
     }
     void Update() {
         _lastPos = _attackPoint.position;

@@ -1,39 +1,33 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Assets.Scripts;
 using EzySlice;
 using UnityEngine;
-using UnityEngine.Video;
+using UnityEngine.AI;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Character : MonoBehaviour, IHittable
-{
+public class Character : MonoBehaviour, IHittable {
     [Header("Stats")]
-    [SerializeField]
-    float _speed = 5f;
+    [SerializeField] float _speed = 5f;
     public float Speed { get => _speed; set => _speed = value; }
-    [SerializeField]
-    float _jumpSpeed = 7f;
-    [SerializeField]
-    float _maxHealth = 100;
-    float _health = 100f;
+    [SerializeField] float _jumpSpeed = 7f;
+    [SerializeField] float _maxHealth = 100f;
+    float _health;
     public event Action OnDeath;
     Weapon _weapon;
     public Weapon Weapon => _weapon;
 
     [Header("Ground & Slopes")]
-    [SerializeField]
-    Detector _groundDetector;
-    [SerializeField]
-    LayerMask _groundMask = ~0;
-    [SerializeField]
-    float _groundCheckDistance = 0.5f;
-    [SerializeField]
-    float _slopeDegree = 45f;
-    [SerializeField, Range(0f, 1f)]
-    float _minSlopeSpeedFactor = 0.6f;
+    [SerializeField] Detector _groundDetector;
+    [SerializeField] LayerMask _groundMask = ~0;
+    [SerializeField] float _groundCheckDistance = 0.5f;
+    [SerializeField] float _slopeDegree = 45f;
+    [SerializeField, Range(0f, 1f)] float _minSlopeSpeedFactor = 0.6f;
     Sliceable _sliceable;
+    Vector3 _pos3;
+    Vector3 _pos2;
+    Vector3 _pos1;
+    Vector3 _pos0;
 
     Rigidbody _rigid;
     Vector3 _moveInput;
@@ -41,16 +35,15 @@ public class Character : MonoBehaviour, IHittable
     Vector3 _groundNormal = Vector3.up;
     float _currentSlopeAngle;
     bool _isDead;
+    public bool IsDead => _isDead;
 
     public void GotHitBy(AttackData attack) {
         _health -= attack.Damage;
-        Debug.Log("GOT HIT");
+        Debug.Log($"GOT HIT {_health} {attack.Damage}");
         if (_health <= 0)
             Die(attack);
     }
-    /// <summary>
-    /// Used for things like potions. if hit by attack, use onHit
-    /// </summar>
+
     public void ModifyHealth(float amount) {
         _health += amount;
         if (_health < 0)
@@ -60,60 +53,106 @@ public class Character : MonoBehaviour, IHittable
     }
 
     void Die() {
-        if (_isDead)
-            return;
+        if (_isDead) return;
         _isDead = true;
         OnDeath?.Invoke();
-        Destroy(this.gameObject);
-    }
-    async void Die(AttackData data) {
-        if (_isDead)
-            return;
-        _isDead = true;
-        OnDeath?.Invoke();
-        GetComponentInChildren<Animator>().speed = 0;
-        var smrs = GetComponentsInChildren<SkinnedMeshRenderer>();
-        foreach(var s in smrs) {
-            var baked = SkinnedMeshBaker.BakeSkinnedHierarchyToStatic(s.gameObject, true);
-            foreach(var b in baked) {
-                b.SliceInstantiate(data.HitPosition, data.HitPlane.normal);
-                Destroy(b);
-            }
-        }
-        //var toSlice = SkinnedMeshBaker.BakeSkinnedHierarchyToStatic(_sliceable.gameObject);
-        //foreach(var s in toSlice) {
-        //    var sl = s.AddComponent<Sliceable>();
-        //    sl.UseGravity = true;
-        //}
-        //foreach(var s in toSlice) {
-        //    Slicer.Slice(Slicer.WorldToLocalPlane(plane, s.transform), s.gameObject);
-        //}
-        //var tasks = toSlice.Select(s => Slicer.SliceBG(Slicer.WorldToLocalPlane(plane, s.transform), s.gameObject));
-        //var results = await Task.WhenAll(tasks);
-        //foreach(var r in results) {
-        //    Slicer.CreateSlicedObjectsFromResult(r);
-        //}
-        //foreach (var g in toSlice)
-        //    Destroy(g.gameObject);
-        Destroy(this.gameObject);
+        Destroy(gameObject);
     }
 
-    /// <summary>
-    /// World-space movement direction (not scaled by speed).
-    /// Call this every frame from input / AI.
-    /// </summary>
-    public void Move(Vector3 dir)
-    {
+    void Die(AttackData data) {
+        if (_isDead) return;
+        _isDead = true;
+        var pos = transform.position;
+        var agent = GetComponent<NavMeshAgent>();
+        if (agent != null) {
+            agent.ResetPath();
+            agent.enabled = false;
+        }
+        if (_rigid != null) {
+            _rigid.linearVelocity = Vector3.zero;
+            _rigid.angularVelocity = Vector3.zero;
+            _rigid.isKinematic = true;
+        }
+        StartCoroutine(DeathSliceRoutine(data, _pos3));
+    }
+
+    System.Collections.IEnumerator DeathSliceRoutine(AttackData data, Vector3 oldPos) {
+        // Wait a frame and a physics step to ensure everything is settled
+        yield return null;
+
+        // Snap back to the stored position before baking/slicing
+        transform.position = oldPos;
+
+        var anim = GetComponentInChildren<Animator>();
+        if (anim) anim.speed = 0f;
+
+        // Detach from any parent so the pieces are independent
+        transform.SetParent(null, true);
+
+        // Bake skinned meshes into regular meshes
+        var bakedObjects = SkinnedMeshBaker.BakeHiearchy(gameObject);
+
+        foreach (var baked in bakedObjects) {
+            var sliced = baked.SliceInstantiate(data.HitPosition, data.HitPlane.normal);
+
+            if (sliced == null || !sliced.Any()) {
+                Destroy(baked);
+                continue;
+            }
+
+            // Clean any existing colliders
+            foreach (var s in sliced) {
+                if (s == null) continue;
+                foreach (var existingColl in s.GetComponentsInChildren<Collider>())
+                    Destroy(existingColl);
+            }
+
+            var pieces = sliced.ToArray();
+            for (int i = 0; i < pieces.Length; i++) {
+                var piece = pieces[i];
+                if (piece == null) continue;
+
+                var meshCollider = piece.AddComponent<MeshCollider>();
+                meshCollider.convex = true;
+
+                var rb = piece.AddComponent<Rigidbody>();
+                rb.useGravity = true;
+                rb.mass = 2f;
+                rb.linearDamping = 0.2f;
+                rb.angularDamping = 0.5f;
+                rb.interpolation = RigidbodyInterpolation.Interpolate;
+                rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+
+                float side = (i % 2 == 0) ? 1f : -1f;
+                const float separation = 0.05f;
+                piece.transform.position += data.HitPlane.normal * separation * side;
+
+                const float impulseStrength = 1.5f;
+                rb.AddForce(data.HitPlane.normal * side * impulseStrength, ForceMode.Impulse);
+            }
+
+            // Prevent the two halves immediately colliding with each other
+            if (pieces.Length >= 2) {
+                var colA = pieces[0].GetComponent<Collider>();
+                var colB = pieces[1].GetComponent<Collider>();
+                if (colA && colB)
+                    Physics.IgnoreCollision(colA, colB, true);
+            }
+
+            Destroy(baked);
+        }
+
+        // Remove the original character object after spawning the pieces
+        Destroy(gameObject);
+    }
+
+    public void Move(Vector3 dir) {
         _moveInput = Vector3.ClampMagnitude(dir, 1f);
     }
 
-    /// <summary>
-    /// Attempts to jump if grounded
-    /// </summary>
-    public void Jump()
-    {
-        if (!_isGrounded)
-            return;
+    public void Jump() {
+        if (!_isGrounded) return;
+        if (_rigid.isKinematic) return; // can't jump when kinematic
 
         Vector3 vel = _rigid.linearVelocity;
         vel.y = _jumpSpeed;
@@ -121,10 +160,7 @@ public class Character : MonoBehaviour, IHittable
         _isGrounded = false;
     }
 
-
-
-    void UpdateGroundInfo()
-    {
+    void UpdateGroundInfo() {
         _isGrounded = _groundDetector != null && _groundDetector.IsBlocked;
         _groundNormal = Vector3.up;
         _currentSlopeAngle = 0f;
@@ -139,53 +175,53 @@ public class Character : MonoBehaviour, IHittable
             _groundNormal = hit.normal;
             _currentSlopeAngle = Vector3.Angle(_groundNormal, Vector3.up);
 
-            if (_currentSlopeAngle > _slopeDegree)
-            {
+            if (_currentSlopeAngle > _slopeDegree) {
                 _isGrounded = false;
                 _groundNormal = Vector3.up;
             }
         }
     }
 
-    void HandleMovement()
-    {
+    void HandleMovement() {
         Vector3 input = _moveInput;
-
         if (input.sqrMagnitude > 1f)
             input.Normalize();
 
         Vector3 moveDir = input;
 
         if (_isGrounded)
-        {
-            // Project movement onto the ground plane so we stick to slopes
             moveDir = Vector3.ProjectOnPlane(moveDir, _groundNormal).normalized;
 
-            float t = Mathf.Clamp01(_currentSlopeAngle / _slopeDegree);
-            float speedFactor = Mathf.Lerp(1f, _minSlopeSpeedFactor, t);
+        float t = Mathf.Clamp01(_currentSlopeAngle / _slopeDegree);
+        float speedFactor = Mathf.Lerp(1f, _minSlopeSpeedFactor, t);
+        Vector3 desiredVel = moveDir * _speed * speedFactor;
 
-            Vector3 desiredVel = moveDir * _speed * speedFactor;
-
+        if (!_rigid.isKinematic) {
+            // Dynamic body – use velocity
             Vector3 rbVel = _rigid.linearVelocity;
             rbVel.x = desiredVel.x;
             rbVel.z = desiredVel.z;
             _rigid.linearVelocity = rbVel;
         }
-        else
-        {
-            Vector3 desiredVel = moveDir * _speed;
-
-            Vector3 rbVel = _rigid.linearVelocity;
-            rbVel.x = desiredVel.x;
-            rbVel.z = desiredVel.z;
-            _rigid.linearVelocity = rbVel;
+        else {
+            // Kinematic – use MovePosition
+            Vector3 targetPos = transform.position + desiredVel * Time.fixedDeltaTime;
+            _rigid.MovePosition(targetPos);
         }
+    }
+
+    void Update() {
+        _pos3 = _pos2;
+        _pos2 = _pos1;
+        _pos1 = _pos0;
+        _pos0 = transform.position;
     }
 
     void FixedUpdate() {
         UpdateGroundInfo();
         HandleMovement();
     }
+
     void Awake() {
         _rigid = GetComponent<Rigidbody>();
         _rigid.constraints = RigidbodyConstraints.FreezeRotation;
