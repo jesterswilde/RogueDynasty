@@ -19,6 +19,7 @@ public class Character : MonoBehaviour, IHittable {
     [SerializeField]
     float _health;
     public float Health => _health;
+    bool _isJumping = false;
     Attacker _attacker;
     Animator _anim;
     AnimWatcher _animWatcher;
@@ -216,13 +217,19 @@ public class Character : MonoBehaviour, IHittable {
         Vector3 vel = _rigid.linearVelocity;
         vel.y = _jumpSpeed;
         _rigid.linearVelocity = vel;
+        _isJumping = true;
         _isGrounded = false;
+        _anim.Play("jump");
     }
 
     void UpdateGroundInfo() {
         _isGrounded = _groundDetector != null && _groundDetector.IsBlocked;
         _groundNormal = Vector3.up;
         _currentSlopeAngle = 0f;
+        if (_isJumping && _isGrounded && _rigid.linearVelocity.y <= 0) {
+            _isJumping = false;
+            _anim.CrossFade("land", 0.25f);
+        }
 
         if (!_isGrounded)
             return;
