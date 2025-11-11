@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using EzySlice;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -98,7 +99,7 @@ public class Character : MonoBehaviour, IHittable {
 
         foreach (var baked in bakedObjects) {
             var avgPos = (data.HitPosition + (3 * (transform.position + transform.up))) / 4;
-            var sliced = baked.SliceInstantiate(data.HitPosition, data.HitPlane.normal);
+            var sliced = baked.SliceInstantiate(data.HitPosition, data.HitPlane.normal, GameManager.T.Innards);
 
             if (sliced == null || !sliced.Any()) {
                 Destroy(baked);
@@ -131,6 +132,7 @@ public class Character : MonoBehaviour, IHittable {
                 float side = (i % 2 == 0) ? 1f : -1f;
                 const float separation = 0.05f;
                 piece.transform.position += data.HitPlane.normal * separation * side;
+                piece.layer = 9;
 
                 piece.AddComponent<DepenetrateOnSpawn>();
 
