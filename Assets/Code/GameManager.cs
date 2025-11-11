@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     public Player Player => _player;
     Camera _camera;
     public Camera Cam => _camera;
+    int _kill = 0;
+    public int Kill { get => _kill; set => _kill = value; }
 
 
     
@@ -27,5 +29,6 @@ public class GameManager : MonoBehaviour
 
         _camera = FindFirstObjectByType<Camera>();
         _player = FindFirstObjectByType<Player>();
+        _kill = 0;
     }
 }

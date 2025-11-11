@@ -142,7 +142,6 @@ GameObject:
   - component: {fileID: 673002399504797958}
   - component: {fileID: 8928975414521601161}
   - component: {fileID: 5821222855477753958}
-  - component: {fileID: 7925057737587941676}
   m_Layer: 0
   m_Name: hitbox
   m_TagString: Untagged
@@ -233,7 +232,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -241,22 +240,37 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &7925057737587941676
-MonoBehaviour:
+--- !u!1 &5287138375274649715
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3556507812856928289}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 411bc953278f44544ba6f381b683881a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _attackPoint: {fileID: 6183089976019708442}
-  _mask:
-    serializedVersion: 2
-    m_Bits: 128
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6645794404477158881}
+  m_Layer: 0
+  m_Name: cameraTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6645794404477158881
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5287138375274649715}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.537, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6229661310032884491}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6098398455964060594
 GameObject:
   m_ObjectHideFlags: 0
@@ -285,8 +299,8 @@ Transform:
   m_GameObject: {fileID: 6098398455964060594}
   serializedVersion: 2
   m_LocalRotation: {x: -0.013668204, y: 0.012545198, z: 0.6760834, w: 0.7365916}
-  m_LocalPosition: {x: -0.0064286524, y: 0.0016677075, z: -0.00020429815}
-  m_LocalScale: {x: 0.00040091036, y: 0.0088423975, z: 0.0004009102}
+  m_LocalPosition: {x: -0.581, y: 0.181, z: -0.008}
+  m_LocalScale: {x: 0.037592974, y: 0.7201128, z: 0.037592974}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6183089976019708442}
@@ -362,7 +376,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5000001
   m_Height: 2
@@ -514,6 +528,7 @@ Transform:
   - {fileID: 3542159806894440501}
   - {fileID: 3202554503602449709}
   - {fileID: 7568797942465032896}
+  - {fileID: 6645794404477158881}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1121203706001367877
@@ -561,6 +576,7 @@ MonoBehaviour:
   _speed: 8
   _jumpSpeed: 10
   _maxHealth: 100
+  _team: 1
   _groundDetector: {fileID: 7988604255726257015}
   _groundMask:
     serializedVersion: 2
