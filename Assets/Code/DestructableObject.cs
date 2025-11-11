@@ -16,6 +16,7 @@ public class DestructableObject : MonoBehaviour, IHittable {
         _health -= attack.Damage;
 
         if (_health <= 0) {
+            transform.SetParent(null, worldPositionStays: true);
             // 1. Cache parent mass before we destroy this object
             float parentMass = 1f;
             var parentRb = GetComponent<Rigidbody>();
