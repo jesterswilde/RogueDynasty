@@ -114,7 +114,7 @@ public class DepenetrateOnSpawn : MonoBehaviour
                         if (dist > 0.0001f)
                         {
                             // dir is the direction we need to move myCol to get out of 'other'
-                            Vector3 offset = dir * (dist + 0.001f); // small extra margin
+                            Vector3 offset = dir * (dist + 0.1f); // small extra margin
                             totalOffset += offset;
                             hitCount++;
                         }

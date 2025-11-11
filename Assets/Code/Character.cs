@@ -79,6 +79,7 @@ public class Character : MonoBehaviour, IHittable {
     System.Collections.IEnumerator DeathSliceRoutine(AttackData data, Vector3 oldPos) {
         // Wait a frame and a physics step to ensure everything is settled
         yield return null;
+        yield return null;
 
         // Snap back to the stored position before baking/slicing
         transform.position = oldPos;
@@ -126,6 +127,8 @@ public class Character : MonoBehaviour, IHittable {
                 float side = (i % 2 == 0) ? 1f : -1f;
                 const float separation = 0.05f;
                 piece.transform.position += data.HitPlane.normal * separation * side;
+
+                piece.AddComponent<DepenetrateOnSpawn>();
 
                 const float impulseStrength = 1.5f;
                 rb.AddForce(data.HitPlane.normal * side * impulseStrength, ForceMode.Impulse);
