@@ -3,12 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour {
-    [SerializeField]
+    [FoldoutGroup("Path & Swarm"), SerializeField]
     Transform _eyePos;
     Squad _squad;
     Character _char;
@@ -17,15 +18,15 @@ public class Enemy : MonoBehaviour {
     Coroutine _attackCo;
     Vector3 _oldPos;
 
-    [SerializeField]
+    [FoldoutGroup("Path & Swarm"), SerializeField]
     float _distFudge = 0.5f;
-    [SerializeField]
+    [FoldoutGroup("Path & Swarm"), SerializeField]
     float _repathIntervalMin = 0.1f;
-    [SerializeField]
+    [FoldoutGroup("Path & Swarm"), SerializeField]
     float _repathIntervalMax = 0.2f;
-    [SerializeField]
+    [FoldoutGroup("Path & Swarm"), SerializeField]
     float _repathThreshold = 0.2f;
-    [SerializeField]
+    [FoldoutGroup("Path & Swarm"), SerializeField]
     float _faceEnemyDist = 5f;
 
     NavMeshAgent _agent;

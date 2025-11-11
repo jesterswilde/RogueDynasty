@@ -83,10 +83,10 @@ public class AttackTable : SerializedScriptableObject
 [Serializable]
 public struct AttackTableEntry
 {
-    public AttackType AttackType;
-    public List<int> Combo;
     public int DC;
+    public AttackType AttackType;
     public string Info;
+    public List<int> Combo;
 }
 
 public enum AttackType

@@ -17,15 +17,15 @@ public class Attacker : MonoBehaviour {
     ParticleSystem _pSystem;
     [SerializeField]
     List<AttackDesc> _basicAttacks;
-    [SerializeField]
-    float _pAnimStart = 0.2f;
-    [SerializeField]
-    float _pAnimEnd = 0.2f;
     public List<AttackDesc> BasicAttacks => _basicAttacks;
 
     [SerializeField]
     List<AttackDesc> _powerAttacks;
     public List<AttackDesc> PowerAttacks => _powerAttacks;
+    [SerializeField]
+    float _pAnimStart = 0.2f;
+    [SerializeField]
+    float _pAnimEnd = 0.2f;
 
     Animator _anim;
     AnimWatcher _animWatcher;
@@ -40,6 +40,7 @@ public class Attacker : MonoBehaviour {
         _char.Weapon.SetAttack(null);
         _isAcceptingInput = false;
         _pSystem?.Stop();
+        _anim.speed = 1f;
     }
     void StartParticles()=>
         _pSystem?.Play();
@@ -75,7 +76,9 @@ public class Attacker : MonoBehaviour {
             EndAttackChain();
             return;
         }
-        _curAttackI++;
+        if(_curAttack?.isLoopable != true)
+            _curAttackI++;
+        _anim.speed = _curAttack.AttackSpeed;
         _curAttackBranch = _queuedAttack;
         var attackList = _curAttackBranch == 0 ? _basicAttacks : _powerAttacks;
         if (attackList.Count <= _curAttackI || _curAttack?.endsCombo == true) {
@@ -104,6 +107,7 @@ public class Attacker : MonoBehaviour {
         _isPlaying = false;
         _isAcceptingInput = false;
         _char.Weapon.SetAttack(null);
+        _anim.speed = 1f;
         _pSystem?.Stop();
         IEnumerator AcceptAfter() {
             yield return new WaitForSeconds(0.5f);

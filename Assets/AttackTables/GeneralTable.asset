@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df9adf4b317af8e419b64293fc459560, type: 3}
+  m_Name: GeneralTable
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  Num: 1
+  Die: 20
+  Entries:
+  - AttackType: 0
+    Combo: 
+    DC: 19
+    Info: 
+  - AttackType: 0
+    Combo: 0100000001000000010000000100000001000000010000000100000001000000
+    DC: 17
+    Info: 
+  - AttackType: 0
+    Combo: 0000000001000000
+    DC: 15
+    Info: 
+  - AttackType: 0
+    Combo: 0000000000000000
+    DC: 13
+    Info: 
+  - AttackType: 0
+    Combo: 01000000
+    DC: 13
+    Info: 
+  - AttackType: 0
+    Combo: 00000000
+    DC: 11
+    Info: 

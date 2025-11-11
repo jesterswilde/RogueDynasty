@@ -2,12 +2,19 @@ using System.Collections;
 using System.Collections.Generic; // <-- needed for List<>
 using EzySlice;
 using UnityEngine;
+using UnityEngine.Video;
 
 public class DestructableObject : MonoBehaviour, IHittable {
     [SerializeField]
     float _maxHealth;
+    [SerializeField]
+    float _breakVelocity = 0.5f;
     float _health;
     bool _canBeHit = false;
+    Vector3 _lastPos;
+    float _maxSpeed = 20;
+    Rigidbody _rigid;
+
 
     public void GotHitBy(AttackData attack) {
         if (!_canBeHit)
@@ -30,13 +37,13 @@ public class DestructableObject : MonoBehaviour, IHittable {
                 GameManager.T.Innards
             );
 
+            //if (sliced == null)
+            //    throw new System.Exception("Sclied was null");
             if (sliced != null && sliced.Length > 0) {
-                // 2. First pass: compute volumes
                 List<GameObject> chunks = new List<GameObject>(sliced);
                 List<float> volumes = new List<float>(chunks.Count);
 
                 float totalVolume = 0f;
-
                 foreach (var s in chunks) {
                     // Try renderer for AABB; could also use collider later
                     var renderer = s.GetComponentInChildren<Renderer>();
@@ -59,6 +66,7 @@ public class DestructableObject : MonoBehaviour, IHittable {
                     }
                 }
 
+                float dir = 1;
                 // 3. Second pass: set up physics + mass
                 for (int i = 0; i < chunks.Count; i++) {
                     var s = chunks[i];
@@ -79,10 +87,14 @@ public class DestructableObject : MonoBehaviour, IHittable {
                     float fraction = volume / totalVolume;
 
                     rb.mass = parentMass * fraction;
+                    rb.AddForce( attack.HitDirection * dir * _breakVelocity * rb.mass, ForceMode.Impulse);
 
                     // Make this slice destructible too
                     var dest = s.AddComponent<DestructableObject>();
                     dest._maxHealth = (_maxHealth / 2f) + 1f;
+                    dest._breakVelocity = _breakVelocity;
+                    dest._lastPos = s.transform.position;
+                    dir *= -1;
                 }
             }
 
@@ -94,6 +106,19 @@ public class DestructableObject : MonoBehaviour, IHittable {
         yield return new WaitForSeconds(1);
         _canBeHit = true;
     }
+    void FixedUpdate() {
+        if (_rigid.IsSleeping())
+            return;
+        var spdSqr = Time.fixedDeltaTime * _maxSpeed;
+        spdSqr *= spdSqr;
+        var travelDist = (_lastPos - transform.position).sqrMagnitude;
+        if (travelDist > spdSqr) {
+            transform.position = _lastPos;
+            _rigid.linearVelocity = Vector3.zero;
+        }
+        else
+            _lastPos = transform.position;
+    }
 
     void Start() {
         StartCoroutine(EnableGetHit());
@@ -101,5 +126,7 @@ public class DestructableObject : MonoBehaviour, IHittable {
 
     void Awake() {
         _health = _maxHealth;
+        _rigid = GetComponent<Rigidbody>();
+        _lastPos = transform.position;
     }
 }
