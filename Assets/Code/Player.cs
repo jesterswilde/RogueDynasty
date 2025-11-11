@@ -1,4 +1,6 @@
+using Unity.Burst.Intrinsics;
 using UnityEngine;
+using UnityEngine.Video;
 
 [RequireComponent(typeof(Character))]
 public class Player : MonoBehaviour {
@@ -16,6 +18,10 @@ public class Player : MonoBehaviour {
             _attacker.QueueAttack(0);
         if (Input.GetMouseButtonDown(1))
             _attacker.QueueAttack(1);
+        if (_attacker.IsPlaying) {
+            _char.Move(Vector3.zero);
+            return;
+        }
         var x = Input.GetAxisRaw("Horizontal");
         var y = Input.GetAxisRaw("Vertical");
         var camForward = GameManager.T.Cam.transform.forward;
