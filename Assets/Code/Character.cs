@@ -2,7 +2,9 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Assets.Scripts;
+using EzySlice;
 using UnityEngine;
+using UnityEngine.Video;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Character : MonoBehaviour, IHittable
@@ -16,6 +18,7 @@ public class Character : MonoBehaviour, IHittable
     [SerializeField]
     float _maxHealth = 100;
     float _health = 100f;
+    public event Action OnDeath;
     Weapon _weapon;
     public Weapon Weapon => _weapon;
 
@@ -40,10 +43,10 @@ public class Character : MonoBehaviour, IHittable
     bool _isDead;
 
     public void GotHitBy(AttackData attack) {
-        Debug.Log("Got hit");
         _health -= attack.Damage;
+        Debug.Log("GOT HIT");
         if (_health <= 0)
-            Die(attack.HitPlane);
+            Die(attack);
     }
     /// <summary>
     /// Used for things like potions. if hit by attack, use onHit
@@ -60,28 +63,38 @@ public class Character : MonoBehaviour, IHittable
         if (_isDead)
             return;
         _isDead = true;
+        OnDeath?.Invoke();
         Destroy(this.gameObject);
     }
-    async void Die(Plane plane) {
+    async void Die(AttackData data) {
         if (_isDead)
             return;
         _isDead = true;
+        OnDeath?.Invoke();
         GetComponentInChildren<Animator>().speed = 0;
-        var toSlice = SkinnedMeshBaker.BakeSkinnedHierarchyToStatic(_sliceable.gameObject);
-        foreach(var s in toSlice) {
-            var sl = s.AddComponent<Sliceable>();
-            sl.UseGravity = true;
+        var smrs = GetComponentsInChildren<SkinnedMeshRenderer>();
+        foreach(var s in smrs) {
+            var baked = SkinnedMeshBaker.BakeSkinnedHierarchyToStatic(s.gameObject, true);
+            foreach(var b in baked) {
+                b.SliceInstantiate(data.HitPosition, data.HitPlane.normal);
+                Destroy(b);
+            }
         }
-        foreach(var s in toSlice) {
-            Slicer.Slice(Slicer.WorldToLocalPlane(plane, s.transform), s.gameObject);
-        }
+        //var toSlice = SkinnedMeshBaker.BakeSkinnedHierarchyToStatic(_sliceable.gameObject);
+        //foreach(var s in toSlice) {
+        //    var sl = s.AddComponent<Sliceable>();
+        //    sl.UseGravity = true;
+        //}
+        //foreach(var s in toSlice) {
+        //    Slicer.Slice(Slicer.WorldToLocalPlane(plane, s.transform), s.gameObject);
+        //}
         //var tasks = toSlice.Select(s => Slicer.SliceBG(Slicer.WorldToLocalPlane(plane, s.transform), s.gameObject));
         //var results = await Task.WhenAll(tasks);
         //foreach(var r in results) {
         //    Slicer.CreateSlicedObjectsFromResult(r);
         //}
-        foreach (var g in toSlice)
-            Destroy(g.gameObject);
+        //foreach (var g in toSlice)
+        //    Destroy(g.gameObject);
         Destroy(this.gameObject);
     }
 

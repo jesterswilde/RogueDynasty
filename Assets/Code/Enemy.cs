@@ -210,11 +210,14 @@ public class Enemy : MonoBehaviour
 
     void Update() {
         if (_anim != null && _agent != null) {
-            // Optional: local-space velocities for animations
             Vector3 localVel = transform.InverseTransformDirection(_agent.velocity);
-            _anim.SetFloat("forwardVelocity", localVel.z);
-            _anim.SetFloat("horizontalVelocity", localVel.x);
+            //_anim.SetFloat("forwardVelocity", localVel.z);
+            //_anim.SetFloat("horizontalVelocity", localVel.x);
         }
+    }
+
+    void Die() {
+        GameManager.T.Kill++;
     }
 
     void Start() {
@@ -223,6 +226,7 @@ public class Enemy : MonoBehaviour
             Debug.LogWarning($"Enemy: {name} is not part of a squad");
         else
             _squad.RegisterUnit(this);
+        _char.OnDeath += Die;
     }
 
     void Awake() {

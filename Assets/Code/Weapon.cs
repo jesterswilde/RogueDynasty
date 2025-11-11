@@ -20,6 +20,7 @@ public class Weapon : MonoBehaviour {
         _curAttack = attack;
     }
     void OnTriggerEnter(Collider other) {
+        Debug.Log($"collision entering {other.name}");
         if (_curAttack == null)
             return;
         if (!_mask.Contains(other.gameObject))
@@ -34,6 +35,7 @@ public class Weapon : MonoBehaviour {
         var attackData = new AttackData {
             Damage = _curAttack.Damage,
             HitPlane = Slicer.CreatePlaneFromPoints(_attackPoint.position, _attackPoint.position + _attackPoint.up, _lastPos),
+            HitPosition = _attackPoint.position,
             HitDirection = (_attackPoint.position - _lastPos).normalized,
             FromOrigin = (_attackPoint.position - _origin.transform.position).normalized
         };

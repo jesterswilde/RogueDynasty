@@ -5,27 +5,14 @@ using UnityEngine;
 public static class SkinnedMeshBaker
 {
     /// <summary>
-    /// Takes a root GameObject that has SkinnedMeshRenderers (possibly in children)
-    /// and returns an array of new GameObjects, each with a static Mesh baked
-    /// from the current animated pose.
+    /// Bakes all SkinnedMeshRenderers under <paramref name="root"/> into
+    /// static MeshRenderers whose vertices are in **world space**.
     ///
-    /// - All Unity API calls must run on the main thread.
-    /// - Each returned GameObject is parented directly under <paramref name="root"/>.
-    /// - World-space appearance (including scale) matches the source SkinnedMeshRenderer.
+    /// Each returned GameObject:
+    /// - Has identity transform (position=0, rotation=identity, scale=1).
+    /// - Renders at the same world-space pose as the SkinnedMeshRenderer at bake time.
+    /// - Is NOT parented under root (they live at scene root).
     /// </summary>
-    /// <param name="root">
-    /// Root GameObject containing one or more SkinnedMeshRenderer components.
-    /// </param>
-    /// <param name="copyMaterials">
-    /// If true, copies the SkinnedMeshRenderer's sharedMaterials onto the new MeshRenderer.
-    /// </param>
-    /// <param name="disableOriginalSkinnedRenderers">
-    /// If true, disables the SkinnedMeshRenderer components after baking.
-    /// </param>
-    /// <returns>
-    /// Array of newly created GameObjects with MeshFilter + MeshRenderer,
-    /// each a direct child of <paramref name="root"/>.
-    /// </returns>
     public static GameObject[] BakeSkinnedHierarchyToStatic(
         GameObject root,
         bool copyMaterials = true,
@@ -44,42 +31,76 @@ public static class SkinnedMeshBaker
             if (smr == null || smr.sharedMesh == null)
                 continue;
 
-            // --- Bake mesh in the current animated pose ---
+            // 1. Bake the skinned mesh in its current pose
             Mesh bakedMesh = new Mesh
             {
                 name = smr.sharedMesh.name + "_Baked"
             };
 
-#if UNITY_2020_1_OR_NEWER
-            // In newer Unity versions, 'useScale: true' ensures scaling is baked correctly.
-            smr.BakeMesh(bakedMesh, true);
-#else
+            // Version-agnostic: default overload, vertices relative to smr.transform
             smr.BakeMesh(bakedMesh);
-#endif
 
-            // --- Create a new GameObject for the baked mesh ---
+            // 2. Convert baked vertices (and normals/tangents) into WORLD space
+            Matrix4x4 localToWorld = smr.transform.localToWorldMatrix;
+
+            Vector3[] verts   = bakedMesh.vertices;
+            Vector3[] normals = bakedMesh.normals;
+            Vector4[] tangents = bakedMesh.tangents;
+
+            for (int i = 0; i < verts.Length; i++)
+            {
+                verts[i] = localToWorld.MultiplyPoint3x4(verts[i]);
+            }
+
+            if (normals != null && normals.Length == verts.Length)
+            {
+                for (int i = 0; i < normals.Length; i++)
+                {
+                    normals[i] = localToWorld.MultiplyVector(normals[i]).normalized;
+                }
+            }
+
+            if (tangents != null && tangents.Length == verts.Length)
+            {
+                for (int i = 0; i < tangents.Length; i++)
+                {
+                    Vector4 t = tangents[i];
+                    Vector3 t3 = new Vector3(t.x, t.y, t.z);
+                    t3 = localToWorld.MultiplyVector(t3).normalized;
+                    tangents[i] = new Vector4(t3.x, t3.y, t3.z, t.w);
+                }
+            }
+
+            bakedMesh.vertices = verts;
+            if (normals != null && normals.Length == verts.Length)
+                bakedMesh.normals = normals;
+            if (tangents != null && tangents.Length == verts.Length)
+                bakedMesh.tangents = tangents;
+
+            bakedMesh.RecalculateBounds();
+
+            // 3. Create a new GameObject for the baked mesh
             GameObject bakedGo = new GameObject(smr.gameObject.name + "_Static");
             Transform bakedTransform = bakedGo.transform;
-            Transform sourceTransform = smr.transform;
 
-            // 1. Set world transform to match the SkinnedMeshRenderer's current world transform.
-            bakedTransform.SetPositionAndRotation(sourceTransform.position, sourceTransform.rotation);
-            bakedTransform.localScale = sourceTransform.lossyScale;
+            // Identity transform so local space == world space
+            bakedTransform.position = Vector3.zero;
+            bakedTransform.rotation = Quaternion.identity;
+            bakedTransform.localScale = Vector3.one;
 
-            // 2. Reparent under the provided root, keeping world-space transform the same.
-            bakedTransform.SetParent(null, worldPositionStays: true);
+            // NOTE: we intentionally do NOT parent it under root,
+            // to keep the transform identity and avoid re-introducing
+            // hierarchical scaling/rotation.
+            bakedTransform.SetParent(null, worldPositionStays: false);
 
-            // --- Add MeshFilter and MeshRenderer ---
+            // 4. Add MeshFilter + MeshRenderer
             MeshFilter mf = bakedGo.AddComponent<MeshFilter>();
             mf.sharedMesh = bakedMesh;
 
             MeshRenderer mr = bakedGo.AddComponent<MeshRenderer>();
             if (copyMaterials)
             {
-                var originalMats = smr.sharedMaterials;
-                var matsCopy = new Material[originalMats.Length];
-                Array.Copy(originalMats, matsCopy, originalMats.Length);
-                mr.sharedMaterials = matsCopy;
+                mr.sharedMaterials = smr.sharedMaterials;
             }
 
             bakedObjects.Add(bakedGo);
@@ -94,15 +115,10 @@ public static class SkinnedMeshBaker
     }
 
     /// <summary>
-    /// Same as BakeSkinnedHierarchyToStatic but named to emphasize that any
-    /// "background thread" work must NOT touch UnityEngine.Object.
-    ///
-    /// This method itself still must be called on the main thread because it
-    /// uses Unity APIs (SkinnedMeshRenderer, GameObject, etc.).
+    /// Kept for compatibility; just forwards to BakeSkinnedHierarchyToStatic.
     /// </summary>
     public static GameObject[] BakeSkinnedHierarchyToStaticSafeForThreads(GameObject root)
     {
-        // Any off-thread work you add should operate only on plain C# data.
         return BakeSkinnedHierarchyToStatic(root);
     }
 }
