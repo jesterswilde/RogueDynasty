@@ -26,7 +26,6 @@ public class AttackTable : SerializedScriptableObject
     {
         if (_isSorted || Entries == null)
             return;
-        Debug.Log("SORTING");
         Entries.Sort((a, b) => b.DC.CompareTo(a.DC)); // highest DC first
         _isSorted = true;
     }
@@ -58,7 +57,6 @@ public class AttackTable : SerializedScriptableObject
     /// </summary>
     public AttackTableEntry? GetEntry()
     {
-        Debug.Log("Getting entry");
         if (Entries == null || Entries.Count == 0)
         {
             Debug.LogWarning($"AttackTable '{name}' has no entries.");
@@ -69,12 +67,10 @@ public class AttackTable : SerializedScriptableObject
 
         int roll = Roll();
 
-        Debug.Log($"ROLL {roll}");
         foreach (var entry in Entries)
         {
             if (roll >= entry.DC)
             {
-                Debug.Log($"ENTRY DC {entry.DC}");
                 return entry;
             }
         }

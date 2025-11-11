@@ -6,8 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour
-{
+public class Enemy : MonoBehaviour {
     [SerializeField]
     Transform _eyePos;
     Squad _squad;
@@ -57,15 +56,12 @@ public class Enemy : MonoBehaviour
         while (true) {
             float waitTime = UnityEngine.Random.Range(_attackInterval.x, _attackInterval.y);
             yield return new WaitForSeconds(waitTime);
-            Debug.Log("Made attack roll");
             if (_target == null)
                 continue;
-            Debug.Log("has target");
             var toTarget = (_target.position - transform.position);
             var dist = toTarget.magnitude;
             if (dist > _maxAttackRange)
                 continue;
-            Debug.Log("in range");
             var entry = _attackTable.GetEntry();
             if (!entry.HasValue)
                 continue;
@@ -107,21 +103,19 @@ public class Enemy : MonoBehaviour
         }
     }
 
+
     Vector3 CalculateTargetPoint() {
         var config = GameManager.T.Config;
-
-        // Fallback if something's missing
         if (config == null || _target == null)
             return transform.position;
 
-        // Use squad's member set as "bros"
         HashSet<Enemy> squadMembers = _squad != null ? _squad.SquadMembers : null;
-
-        // If there are no other bros, just handle distance-to-target logic
         if (squadMembers == null || squadMembers.Count <= 1) {
+            // No bros → treat as solo
             return CalculateSoloTarget();
         }
 
+        // --- compute squad center & repulsion as you already do ---
         Vector3 center = Vector3.zero;
         Vector3 repulseDir = Vector3.zero;
 
@@ -135,44 +129,47 @@ public class Enemy : MonoBehaviour
             broCount++;
             center += bro.transform.position;
 
-            var toBro = transform.position - bro.transform.position; // bro -> me
-            float sqr = toBro.sqrMagnitude;
+            var toBro = transform.position - bro.transform.position;
+            float toBroSqr = toBro.sqrMagnitude;
 
-            if (sqr < repulseThreshSqr && sqr > 0.0001f) {
-                float dist = Mathf.Sqrt(sqr); // correct: sqrt of sqrMagnitude
+            if (toBroSqr < repulseThreshSqr && toBroSqr > 0.0001f) {
+                float dist = Mathf.Sqrt(toBroSqr);
                 float t = 1f - (dist / config.RepulseAtDistance);
                 repulseDir += toBro.normalized * t;
             }
         }
 
-        // If we didn't actually find any other valid bros, fall back to solo logic
-        if (broCount == 0) {
+        if (broCount == 0)
             return CalculateSoloTarget();
-        }
 
         center /= broCount;
 
-        // Distance control relative to target (match Bro logic)
+        // --- exact distance ring around the player ---
         Vector3 toTarget = _target.position - transform.position;
         float distToTarget = toTarget.magnitude;
-        Vector3 toTargetForce = Vector3.zero;
+        if (distToTarget < 0.001f)
+            return transform.position;
 
-        if (distToTarget > config.DesiredDistance + _distFudge) {
-            toTargetForce = toTarget.normalized * (distToTarget - config.DesiredDistance);
-        }
-        else if (distToTarget < config.DesiredDistance - _distFudge) {
-            toTargetForce = toTarget.normalized * (config.DesiredDistance - distToTarget) * -1f;
-        }
+        Vector3 dirToTarget = toTarget.normalized;
+        float desiredDist = config.DesiredDistance;
 
-        // Combine forces
+        // Base position at exact distance from player
+        Vector3 basePos = _target.position - dirToTarget * desiredDist;
+
+        // --- group & repulse forces as offsets around that ring ---
         Vector3 groupDir = center - transform.position;
+
         Vector3 offset =
             groupDir * config.GroupForce +
-            repulseDir * config.RepulseForce +
-            toTargetForce * config.TargetDrawForce;
+            repulseDir * config.RepulseForce;
 
-        return transform.position + offset;
+        // Optional: only apply offset when we’re not already close enough to desired ring
+        if (Mathf.Abs(distToTarget - desiredDist) <= _distFudge)
+            return basePos + offset;
+
+        return basePos + offset;
     }
+
 
     Vector3 CalculateSoloTarget() {
         var config = GameManager.T.Config;
@@ -256,12 +253,12 @@ public class Enemy : MonoBehaviour
             return;
         if (_attacker.IsPlaying)
             transform.LookAt(_target);
-        if(_squad.SeesEnemy && _target != null) {
+        if (_squad.SeesEnemy && _target != null) {
             var toEnemy = _target.position - transform.position;
-            if((_faceEnemyDist * _faceEnemyDist) < toEnemy.sqrMagnitude) {
+            if ((_faceEnemyDist * _faceEnemyDist) < toEnemy.sqrMagnitude) {
                 transform.LookAt(_target);
             }
-            
+
         }
         if (_anim != null && _agent != null) {
             var diff = (transform.position - _oldPos) / Time.deltaTime;
@@ -282,7 +279,6 @@ public class Enemy : MonoBehaviour
     }
 
     void Die() {
-        Debug.Log("Enemy called die");
         GameManager.T.Kill++;
         if (_scanCo != null)
             StopCoroutine(_scanCo);
