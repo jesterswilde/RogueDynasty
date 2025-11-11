@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a3e50a1ff2ad2f4bbd16a78622ac643, type: 3}
   m_Name: 2h02
   m_EditorClassIdentifier: 
-  Name: 2h01
-  AnimName: 2h01
+  Name: 2h02
+  AnimName: 2h02
   Damage: 30
   isHoldable: 0
   endsCombo: 0

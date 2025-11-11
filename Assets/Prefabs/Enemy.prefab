@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4804129446239206370}
   - component: {fileID: 2814544257405770077}
   - component: {fileID: 1508683855302351213}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119,7 +119,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5790233777330683491}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-middleFinger01.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,7 +152,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7220219207534601926}
   - component: {fileID: 4361516813007028689}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: inuyasha
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -207,7 +207,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 611282884371029629}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-handProp.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -239,7 +239,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6268635153984310180}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-jaw
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -271,7 +271,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5572258228692544182}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-middleFinger03.R_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -302,7 +302,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2056400032107406689}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-ringFinger01.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -334,7 +334,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7019925716252908784}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-pinky02.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -366,7 +366,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8756043116474820198}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-middleFinger03.L_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -397,7 +397,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4605956427336272480}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-pinky03.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -429,7 +429,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4755770970435145524}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-handProp.L_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -460,7 +460,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2967794386636569418}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-pinky03.R_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -491,7 +491,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4815965059780241208}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-pinky03.L_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -525,7 +525,7 @@ GameObject:
   - component: {fileID: 4630584266425302349}
   - component: {fileID: 8881630172564241769}
   - component: {fileID: 2238715126936511921}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -633,7 +633,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2112164906139638896}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-thumb03.L_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -664,7 +664,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8129799420829784048}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-toe.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -696,7 +696,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4922420195762700765}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-toe.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -728,7 +728,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6877222139165558905}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-hand.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -766,7 +766,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1756404675379083627}
   - component: {fileID: 5549763628905373431}
-  m_Layer: 0
+  - component: {fileID: 8521905152192662578}
+  m_Layer: 7
   m_Name: Inuyasha.058
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -903,6 +904,24 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.000046508387, y: 0.008725063, z: -0.0007311747}
     m_Extent: {x: 0.008658603, y: 0.009810387, z: 0.003248904}
   m_DirtyAABB: 0
+--- !u!114 &8521905152192662578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2276817408115154749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a84c1e0b076a0cd46b3973bdcfd54012, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShouldSlice: 1
+  _isSolid: 1
+  _reverseWindTriangles: 0
+  _useGravity: 0
+  _shareVertices: 0
+  _smoothVertices: 1
 --- !u!1 &2600057468335552449
 GameObject:
   m_ObjectHideFlags: 0
@@ -912,7 +931,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6628092276007310365}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-shin.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -944,7 +963,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4903116153803260902}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-foot.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -976,7 +995,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8345307722015249162}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-middleFinger03.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1008,7 +1027,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4492666327522342079}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-ringFinger02.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1040,7 +1059,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 357437608215584558}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-shoulder.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1072,7 +1091,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3684612337034062014}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-spine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1104,7 +1123,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7757779719109519400}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-handProp.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1136,7 +1155,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2914838868986675640}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-toe.L_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1170,7 +1189,7 @@ GameObject:
   - component: {fileID: 6947669219266523013}
   - component: {fileID: 823733094484574782}
   - component: {fileID: 3354492868806994158}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1277,7 +1296,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 876342097029210588}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-toe.R_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1308,7 +1327,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1504479676596827498}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1341,7 +1360,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4424755760697381580}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-middleFinger01.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1373,7 +1392,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7293383870451564259}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-thigh.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1405,7 +1424,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8223815428641766860}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-indexFinger02.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1437,7 +1456,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4578120089139431517}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-indexFinger01.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1469,7 +1488,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3845943313819701651}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-thumb01.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1505,7 +1524,7 @@ GameObject:
   - component: {fileID: 2297500387436462273}
   - component: {fileID: 6848294950522197345}
   - component: {fileID: 5761846084670410315}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: GroundDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1631,7 +1650,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5511808852587671980}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Rig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1663,7 +1682,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3332966117926986369}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-jaw_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1694,7 +1713,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5439197657732853407}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-ringFinger03.L_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1725,7 +1744,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4260541428246052249}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-thigh.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1757,7 +1776,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2321888116193823264}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-neck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1789,7 +1808,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 834558457581876489}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-middleFinger02.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1821,7 +1840,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5676396173506333898}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-pinky03.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1853,7 +1872,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2089256378138674455}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-pinky02.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1889,7 +1908,7 @@ GameObject:
   - component: {fileID: 7473513286482851202}
   - component: {fileID: 3374465384019048158}
   - component: {fileID: 297712476842757640}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1946,8 +1965,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 8
   _jumpSpeed: 10
-  _maxHealth: 100
-  _team: 2
+  _maxHealth: 20
   _groundDetector: {fileID: 5761846084670410315}
   _groundMask:
     serializedVersion: 2
@@ -2013,7 +2031,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 80549388691182072}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-ringFinger03.R_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2044,7 +2062,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2330518888259001012}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2076,7 +2094,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8767875609645290498}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: EyePos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2107,7 +2125,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6584525427154896768}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-indexFinger03.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2139,7 +2157,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8669117949791830769}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-spineProxy_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2170,7 +2188,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7092076342153731670}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-thumb02.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2202,7 +2220,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4758489013961042731}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-ringFinger01.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2234,7 +2252,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4007676088642066705}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-thumb01.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2266,7 +2284,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1484395502265443665}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-thumb02.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2298,7 +2316,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7019955728354869451}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-pinky01.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2330,7 +2348,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 471519860260907353}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-ringFinger02.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2362,7 +2380,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7797763443856826300}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-ringFinger03.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2394,7 +2412,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6680499674058356195}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-forearm.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2426,7 +2444,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2959963640962843098}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-indexFinger03.R_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2457,7 +2475,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6134417542771732229}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-foot.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2489,7 +2507,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6354235337841570726}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-thumb03.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2521,7 +2539,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5574048548550147921}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-thumb03.R_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2552,7 +2570,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8248779651077463505}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-indexFinger02.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2584,7 +2602,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2122105271737984911}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-hand.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2622,7 +2640,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6946827882634678674}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-thumb03.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2654,7 +2672,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4500424822454968568}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-middleFinger02.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2686,7 +2704,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3709391339848058460}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-upperArm.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2718,7 +2736,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8364341294563158024}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-spineProxy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2750,7 +2768,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4186722118431744829}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-shoulder.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2782,7 +2800,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6835918563614506492}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-forearm.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2814,7 +2832,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4720027711471239798}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-middleFinger03.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2846,7 +2864,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9204914717455263961}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-indexFinger03.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2878,7 +2896,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8168773911161093809}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-indexFinger01.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2910,7 +2928,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4732857659128312071}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-shin.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2942,7 +2960,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2924302522254547316}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-handProp.R_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2973,7 +2991,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 711079953476180856}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-pinky01.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3005,7 +3023,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3373999334045992679}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-indexFinger03.L_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3036,7 +3054,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7727100385167965827}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-ringFinger03.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3068,7 +3086,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1341529137974772984}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-hips
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3102,7 +3120,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4940886288798911797}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-upperArm.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3134,7 +3152,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1464827692028964138}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: B-chest
   m_TagString: Untagged
   m_Icon: {fileID: 0}

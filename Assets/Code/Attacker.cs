@@ -10,6 +10,7 @@ public class Attacker : MonoBehaviour {
     bool _isPlaying = false;
     bool _isAcceptingInput = true;
     AttackDesc _curAttack;
+    Character _char;
     [SerializeField]
     List<AttackDesc> _basicAttacks;
     public List<AttackDesc> BasicAttacks => _basicAttacks;
@@ -23,14 +24,12 @@ public class Attacker : MonoBehaviour {
     public void QueueAttack(int num) {
         if (!_isAcceptingInput)
             return;
-        Debug.Log($"Accepted input {num}");
         _queuedAttack = num;
         if (!_isPlaying) {
             PlayNextAttack();
         }
     }
     void PlayNextAttack() {
-        Debug.Log($"Trying to paly next attack");
         if (_queuedAttack == -1) {
             EndAttackChain();
             return;
@@ -47,7 +46,7 @@ public class Attacker : MonoBehaviour {
         _isPlaying = true;
         _isAcceptingInput = false;
         _curAttack = attackList[_curAttackI];
-        Debug.Log($"Playing {_curAttack.AnimName} attackI {_curAttackI} | Branch {_curAttackBranch}");
+        _char.Weapon.SetAttack(_curAttack);
         _anim.Play(_curAttack.AnimName);
         _animWatcher.OnAnimTime(_curAttack.AnimName, 0.5f, ()=>{
             _isAcceptingInput = true;
@@ -55,13 +54,13 @@ public class Attacker : MonoBehaviour {
         _animWatcher.OnAnimEnd(_curAttack.AnimName, PlayNextAttack);
     }
     void EndAttackChain() {
-        Debug.Log("Ending attack chain");
         _curAttackBranch = -1;
         _curAttackI = -1;
         _curAttack = null;
         _queuedAttack = -1;
         _isPlaying = false;
         _isAcceptingInput = false;
+        _char.Weapon.SetAttack(null);
         IEnumerator AcceptAfter() {
             yield return new WaitForSeconds(0.5f);
             _isAcceptingInput = true;
@@ -72,5 +71,12 @@ public class Attacker : MonoBehaviour {
     void Awake() {
         _anim = GetComponentInChildren<Animator>();
         _animWatcher = GetComponentInChildren<AnimWatcher>();
+        _char = GetComponent<Character>();
+        if (_anim == null)
+            Debug.LogWarning($"No anim under Attacker for {name}");
+        if (_animWatcher == null)
+            Debug.LogWarning($"No animWatcher under Attacker for {name}");
+        if (_char == null)
+            Debug.LogWarning($"Attacker needs Character on same GO| {name}");
     }
 }

@@ -142,6 +142,7 @@ GameObject:
   - component: {fileID: 673002399504797958}
   - component: {fileID: 8928975414521601161}
   - component: {fileID: 5821222855477753958}
+  - component: {fileID: 7925057737587941676}
   m_Layer: 0
   m_Name: hitbox
   m_TagString: Untagged
@@ -232,7 +233,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -240,6 +241,22 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &7925057737587941676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3556507812856928289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 411bc953278f44544ba6f381b683881a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _attackPoint: {fileID: 6183089976019708442}
+  _mask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &6098398455964060594
 GameObject:
   m_ObjectHideFlags: 0
@@ -345,7 +362,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5000001
   m_Height: 2
@@ -544,7 +561,6 @@ MonoBehaviour:
   _speed: 8
   _jumpSpeed: 10
   _maxHealth: 100
-  _team: 1
   _groundDetector: {fileID: 7988604255726257015}
   _groundMask:
     serializedVersion: 2

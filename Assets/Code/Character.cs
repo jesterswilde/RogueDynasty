@@ -1,8 +1,8 @@
 using System;
+using System.Linq;
+using System.Threading.Tasks;
 using Assets.Scripts;
-using UnityEditor.Analytics;
 using UnityEngine;
-using UnityEngine.SocialPlatforms;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Character : MonoBehaviour, IHittable
@@ -16,6 +16,8 @@ public class Character : MonoBehaviour, IHittable
     [SerializeField]
     float _maxHealth = 100;
     float _health = 100f;
+    Weapon _weapon;
+    public Weapon Weapon => _weapon;
 
     [Header("Ground & Slopes")]
     [SerializeField]
@@ -35,12 +37,13 @@ public class Character : MonoBehaviour, IHittable
     bool _isGrounded;
     Vector3 _groundNormal = Vector3.up;
     float _currentSlopeAngle;
-    float _isDead;
+    bool _isDead;
 
     public void GotHitBy(AttackData attack) {
+        Debug.Log("Got hit");
         _health -= attack.Damage;
         if (_health <= 0)
-            Die();
+            Die(attack.HitPlane);
     }
     /// <summary>
     /// Used for things like potions. if hit by attack, use onHit
@@ -54,11 +57,32 @@ public class Character : MonoBehaviour, IHittable
     }
 
     void Die() {
-
+        if (_isDead)
+            return;
+        _isDead = true;
+        Destroy(this.gameObject);
     }
-    void Die(Plane plane) {
-        var localPlane = Slicer.WorldToLocalPlane(plane, _sliceable.transform);
-        Slicer.Slice(localPlane, _sliceable.gameObject);
+    async void Die(Plane plane) {
+        if (_isDead)
+            return;
+        _isDead = true;
+        GetComponentInChildren<Animator>().speed = 0;
+        var toSlice = SkinnedMeshBaker.BakeSkinnedHierarchyToStatic(_sliceable.gameObject);
+        foreach(var s in toSlice) {
+            var sl = s.AddComponent<Sliceable>();
+            sl.UseGravity = true;
+        }
+        foreach(var s in toSlice) {
+            Slicer.Slice(Slicer.WorldToLocalPlane(plane, s.transform), s.gameObject);
+        }
+        //var tasks = toSlice.Select(s => Slicer.SliceBG(Slicer.WorldToLocalPlane(plane, s.transform), s.gameObject));
+        //var results = await Task.WhenAll(tasks);
+        //foreach(var r in results) {
+        //    Slicer.CreateSlicedObjectsFromResult(r);
+        //}
+        foreach (var g in toSlice)
+            Destroy(g.gameObject);
+        Destroy(this.gameObject);
     }
 
     /// <summary>
@@ -156,5 +180,6 @@ public class Character : MonoBehaviour, IHittable
             _groundDetector = GetComponentInChildren<Detector>();
         _health = _maxHealth;
         _sliceable = GetComponentInChildren<Sliceable>();
+        _weapon = GetComponentInChildren<Weapon>();
     }
 }

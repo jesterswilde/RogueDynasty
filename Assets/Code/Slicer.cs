@@ -41,8 +41,8 @@ namespace Assets.Scripts
             positiveObject.GetComponent<MeshFilter>().mesh = positiveSideMeshData;
             negativeObject.GetComponent<MeshFilter>().mesh = negativeSideMeshData;
 
-            SetupCollidersAndRigidBodys(ref positiveObject, positiveSideMeshData, sliceable.UseGravity);
-            SetupCollidersAndRigidBodys(ref negativeObject, negativeSideMeshData, sliceable.UseGravity);
+            //SetupCollidersAndRigidBodys(ref positiveObject, positiveSideMeshData, sliceable.UseGravity);
+            //SetupCollidersAndRigidBodys(ref negativeObject, negativeSideMeshData, sliceable.UseGravity);
 
             return new GameObject[] { positiveObject, negativeObject};
         }        

@@ -16,5 +16,5 @@ MonoBehaviour:
   AnimName: polearm02
   Damage: 10
   isHoldable: 0
-  endsCombo: 0
+  endsCombo: 1
   isLoopable: 0

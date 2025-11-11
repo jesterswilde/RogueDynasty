@@ -11,8 +11,8 @@ public class Squad : MonoBehaviour
  
     internal void RegisterUnit(Enemy squadMember) {
         _squadMembers.Add(squadMember);
-        if (!_seesEnemy)
-            squadMember.StartScanForEnemy();
+        //if (!_seesEnemy)
+        //    squadMember.StartScanForEnemy();
     }
     internal void UnitDied(Enemy squadMember) {
         _squadMembers.Remove(squadMember);
