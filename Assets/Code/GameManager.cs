@@ -20,6 +20,10 @@ public class GameManager : MonoBehaviour
         } }
     public event Action<int> OnKill;
 
+    void Start() {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
     void Awake()
     {
         if (t != null)

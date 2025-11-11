@@ -21,8 +21,7 @@ public class Player : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Space))
             _char.Jump();
         if(_anim != null) {
-            _anim.SetFloat("forwardVelocity", y * _char.Speed);
-            _anim.SetFloat("horizontalVelocity", x * _char.Speed);
+            _anim.SetFloat("forwardVelocity", Mathf.Max(Mathf.Abs(y),Mathf.Abs(x)) * _char.Speed);
         }
         if (x == 0 && y == 0)
             return;
