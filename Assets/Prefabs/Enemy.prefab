@@ -152,7 +152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _basicAttacks:
   - {fileID: 11400000, guid: 29bf2180d931de7479fb53d497a9f7cc, type: 2}
-  - {fileID: 11400000, guid: 1c171db29c70ad141961ac9f73dde06f, type: 2}
+  - {fileID: 11400000, guid: 88382538416866840b8f45b7cc3255fa, type: 2}
   _powerAttacks:
   - {fileID: 11400000, guid: 2ca1eebe99ddeb6478ec5c9f303a6577, type: 2}
   - {fileID: 11400000, guid: 858953ea4332ae64d880082599fc0d8e, type: 2}
@@ -173,6 +173,9 @@ MonoBehaviour:
   _repathIntervalMin: 0.1
   _repathIntervalMax: 0.2
   _repathThreshold: 0.5
+  _attackTable: {fileID: 11400000, guid: c98ddefc5e817ff4b81353309d96c1a3, type: 2}
+  _attackInterval: {x: 2, y: 4}
+  _maxAttackRange: 4
 --- !u!114 &7284613674257100342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2340,7 +2343,7 @@ MonoBehaviour:
   _attackPoint: {fileID: 8968209402483302476}
   _mask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 64
 --- !u!1 &6531534528038001333
 GameObject:
   m_ObjectHideFlags: 0

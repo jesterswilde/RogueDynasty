@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -13,6 +14,8 @@ public class Enemy : MonoBehaviour
     Character _char;
     Coroutine _scanCo;
     Coroutine _swarmingCo;
+    Coroutine _attackCo;
+    Vector3 _oldPos;
 
     [SerializeField]
     float _distFudge = 0.5f;
@@ -21,13 +24,54 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     float _repathIntervalMax = 0.2f;
     [SerializeField]
-    float _repathThreshold = 0.5f;
+    float _repathThreshold = 0.2f;
+    [SerializeField]
+    float _faceEnemyDist = 5f;
 
     NavMeshAgent _agent;
+    Attacker _attacker;
     Vector3 _lastGoal;
     Transform _target;
     bool _hasGoal;
     Animator _anim;
+
+    [SerializeField]
+    AttackTable _attackTable;
+    [SerializeField]
+    Vector2 _attackInterval;
+    [SerializeField]
+    float _maxAttackRange;
+
+
+
+    //----------------------------
+    // SWARMING
+    //----------------------------
+    public void StartAttacking() {
+        _attackCo = StartCoroutine(AttackCo());
+    }
+    public void StopAttacking() {
+        StopCoroutine(_attackCo);
+    }
+    public IEnumerator AttackCo() {
+        while (true) {
+            float waitTime = UnityEngine.Random.Range(_attackInterval.x, _attackInterval.y);
+            yield return new WaitForSeconds(waitTime);
+            Debug.Log("Made attack roll");
+            if (_target == null)
+                continue;
+            Debug.Log("has target");
+            var toTarget = (_target.position - transform.position);
+            var dist = toTarget.magnitude;
+            if (dist > _maxAttackRange)
+                continue;
+            Debug.Log("in range");
+            var entry = _attackTable.GetEntry();
+            if (!entry.HasValue)
+                continue;
+            _attacker.QueueAttackSet(entry.Value.Combo);
+        }
+    }
 
     //----------------------------
     // SWARMING
@@ -210,11 +254,31 @@ public class Enemy : MonoBehaviour
     void Update() {
         if (_char.IsDead)
             return;
-        if (_anim != null && _agent != null) {
-            Vector3 localVel = transform.InverseTransformDirection(_agent.velocity);
-            //_anim.SetFloat("forwardVelocity", localVel.z);
-            //_anim.SetFloat("horizontalVelocity", localVel.x);
+        if (_attacker.IsPlaying)
+            transform.LookAt(_target);
+        if(_squad.SeesEnemy && _target != null) {
+            var toEnemy = _target.position - transform.position;
+            if((_faceEnemyDist * _faceEnemyDist) < toEnemy.sqrMagnitude) {
+                transform.LookAt(_target);
+            }
+            
         }
+        if (_anim != null && _agent != null) {
+            var diff = (transform.position - _oldPos) / Time.deltaTime;
+            var diffMag = diff.magnitude;
+            if (diffMag < 0.01f) {
+                _anim.SetFloat("forwardVelocity", 0f);
+                _anim.SetFloat("horizontalVelocity", 0f);
+            }
+            else {
+                var norm = diff.normalized;
+                var forward = Vector3.Dot(transform.forward, norm * _char.Speed);
+                var right = Vector3.Dot(transform.right, norm * _char.Speed);
+                _anim.SetFloat("forwardVelocity", forward);
+                _anim.SetFloat("horizontalVelocity", right);
+            }
+        }
+        _oldPos = transform.position;
     }
 
     void Die() {
@@ -239,6 +303,7 @@ public class Enemy : MonoBehaviour
 
     void Awake() {
         _char = GetComponent<Character>();
+        _attacker = GetComponentInChildren<Attacker>();
         _agent = GetComponent<NavMeshAgent>();
         _agent.speed = _char.Speed;
         _agent.angularSpeed = 360f;

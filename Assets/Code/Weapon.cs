@@ -21,7 +21,6 @@ public class Weapon : MonoBehaviour {
         _slices = new();
     }
     void OnTriggerEnter(Collider other) {
-        Debug.Log($"collision entering {other.name}");
         if (_curAttack == null)
             return;
         if (!_mask.Contains(other.gameObject))

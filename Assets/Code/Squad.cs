@@ -5,6 +5,7 @@ using UnityEngine;
 public class Squad : MonoBehaviour
 {
     bool _seesEnemy;
+    public bool SeesEnemy => _seesEnemy;
     HashSet<Enemy> _squadMembers = new();
     public HashSet<Enemy> SquadMembers => _squadMembers;
 
@@ -26,10 +27,10 @@ public class Squad : MonoBehaviour
         foreach(var e in _squadMembers) {
             e.StopScanForEnemy();
             e.StartSwarmingPlayer();
+            e.StartAttacking();
         }
     }
     internal void LostEnemy()
     {
-
     }
 }

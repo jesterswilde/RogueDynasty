@@ -10,8 +10,11 @@ public class Character : MonoBehaviour, IHittable {
     [Header("Stats")]
     [SerializeField] float _speed = 5f;
     public float Speed { get => _speed; set => _speed = value; }
-    [SerializeField] float _jumpSpeed = 7f;
-    [SerializeField] float _maxHealth = 100f;
+    [SerializeField] 
+    float _jumpSpeed = 7f;
+    [SerializeField]
+    float _maxHealth = 100f;
+    [SerializeField]
     float _health;
     public event Action OnDeath;
     Weapon _weapon;
@@ -94,6 +97,7 @@ public class Character : MonoBehaviour, IHittable {
         var bakedObjects = SkinnedMeshBaker.BakeHiearchy(gameObject);
 
         foreach (var baked in bakedObjects) {
+            var avgPos = (data.HitPosition + (3 * (transform.position + transform.up))) / 4;
             var sliced = baked.SliceInstantiate(data.HitPosition, data.HitPlane.normal);
 
             if (sliced == null || !sliced.Any()) {

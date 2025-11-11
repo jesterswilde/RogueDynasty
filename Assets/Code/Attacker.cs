@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Attacker : MonoBehaviour {
     int _queuedAttack = -1;
+    List<int> _queuedAttacks;
     int _curAttackI = -1;
     int _curAttackBranch = -1;
     bool _isPlaying = false;
+    public bool IsPlaying => _isPlaying;
     bool _isAcceptingInput = true;
     AttackDesc _curAttack;
     Character _char;
@@ -21,6 +24,16 @@ public class Attacker : MonoBehaviour {
 
     Animator _anim;
     AnimWatcher _animWatcher;
+    public void QueueAttackSet(List<int> attacks) {
+        if (!_isPlaying) {
+            _queuedAttacks = new(attacks);
+            _curAttackBranch = -1;
+            _curAttackI = -1;
+            _curAttack = null;
+            _queuedAttack = -1;
+            PlayNextAttack();
+        }
+    }
     public void QueueAttack(int num) {
         if (!_isAcceptingInput)
             return;
@@ -30,6 +43,10 @@ public class Attacker : MonoBehaviour {
         }
     }
     void PlayNextAttack() {
+        if(_queuedAttacks != null && _queuedAttacks.Count > 0) {
+            _queuedAttack = _queuedAttacks[0];
+            _queuedAttacks.RemoveAt(0);
+        }
         if (_queuedAttack == -1) {
             EndAttackChain();
             return;
