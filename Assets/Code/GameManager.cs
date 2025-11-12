@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour {
     LayerMask _enemiesMask;
     [SerializeField]
     List<AudioClip> _bgm;
+    [SerializeField]
+    AudioClip _levelUpSound;
     AudioSource _audio;
     public Material Innards => _innards;
     public Config Config => _config;
@@ -65,6 +67,7 @@ public class GameManager : MonoBehaviour {
     }
     public void PickUpgrade() {
         Time.timeScale = 0;
+        PlayAudio(_levelUpSound);
         var choices = UpgradeManager.T.GetChoices();
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
