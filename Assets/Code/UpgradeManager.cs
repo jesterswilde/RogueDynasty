@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class UpgradeManager : SerializedMonoBehaviour {
@@ -35,6 +36,9 @@ public class UpgradeManager : SerializedMonoBehaviour {
                 var meetsReqs = option.RequiredIDs.All((r) => _takenUpgrades.Contains(r));
                 if (!meetsReqs)
                     continue;
+            }
+            if(option.Repeatable != true && pickedChoices.Contains(option.ID)) {
+                continue;
             }
             if (!pickedChoices.Contains(option.ID)) {
                 pickedChoices.Add(option.ID);
@@ -82,8 +86,11 @@ public class UpgradeManager : SerializedMonoBehaviour {
         new() {
             ID = "HPBoost",
             Title = "Health Boost",
-            Text = "Gain 20 HP",
-            OnPurchase = (player)=> player.Char.MaxHealth += 20,
+            Text = "Gain 20 Max HP and Heal 40",
+            OnPurchase = (player)=>{
+                player.Char.MaxHealth += 20;
+                player.Char.ModifyHealth(40);
+            },
             Repeatable = true
         },
         new() {
