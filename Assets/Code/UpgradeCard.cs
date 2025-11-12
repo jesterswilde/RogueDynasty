@@ -1,8 +1,10 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class UpgradeCard : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler{
+public class UpgradeCard : MonoBehaviour, IPointerDownHandler{
+    bool _canPick = false;
     [SerializeField]
     TMPro.TextMeshProUGUI _title;
     [SerializeField]
@@ -11,12 +13,13 @@ public class UpgradeCard : MonoBehaviour, IPointerDownHandler, IPointerEnterHand
     UpgradeChoice _choice;
 
     public void OnPointerDown(PointerEventData eventData) {
-        Debug.Log("Clicked!");
+        if (!_canPick)
+            return;
         CB?.Invoke(_choice);
     }
-
-    public void OnPointerEnter(PointerEventData eventData) {
-        Debug.Log("Entered");
+    IEnumerator CanPick() {
+        yield return new WaitForSecondsRealtime(0.5f);
+        _canPick = true;
     }
 
     public void Showchoice(UpgradeChoice choice, Action<UpgradeChoice> OnPick) {
@@ -24,5 +27,6 @@ public class UpgradeCard : MonoBehaviour, IPointerDownHandler, IPointerEnterHand
         _text.text = choice.Text;
         _choice = choice;
         CB = OnPick;
+        StartCoroutine(CanPick());
     }
 }

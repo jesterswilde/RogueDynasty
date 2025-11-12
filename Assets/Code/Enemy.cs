@@ -198,6 +198,8 @@ public class Enemy : MonoBehaviour {
 
     IEnumerator ScanForEnemies() {
         while (true) {
+            if(GameManager.T.Player == null)
+                yield return new WaitForSeconds(20);
             var scanInterval = GameManager.T.Config.EnemyScanInterval;
             var scanMask = GameManager.T.Config.EnemyScanMask;
             float waitTime = UnityEngine.Random.Range(scanInterval.x, scanInterval.y);

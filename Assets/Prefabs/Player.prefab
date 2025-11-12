@@ -259,6 +259,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 640
   _partcilePoint: {fileID: 4446817733586037859}
+  _weaponTransform: {fileID: 3567229320148311780}
   _defaultAttackSound: {fileID: 8300000, guid: 8cbd7835e82938045b9639c98eb1883a, type: 3}
 --- !u!1 &5287138375274649715
 GameObject:
@@ -520,9 +521,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45221f0496855564bac490537c55890c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 8
+  _speed: 6.5
   _jumpSpeed: 10
-  _maxHealth: 100
+  _maxHealth: 75
   _health: 0
   _groundDetector: {fileID: 7988604255726257015}
   _groundMask:

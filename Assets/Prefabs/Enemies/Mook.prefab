@@ -77,7 +77,7 @@ MonoBehaviour:
   _repathThreshold: 0.5
   _faceEnemyDist: 5
   _attackTable: {fileID: 11400000, guid: c98ddefc5e817ff4b81353309d96c1a3, type: 2}
-  _attackInterval: {x: 4, y: 6}
+  _attackInterval: {x: 3, y: 5}
   _maxAttackRange: 4
 --- !u!114 &7284613674257100342
 MonoBehaviour:
@@ -93,7 +93,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 7
   _jumpSpeed: 10
-  _maxHealth: 40
+  _maxHealth: 50
   _health: 0
   _groundDetector: {fileID: 2834463598785412089}
   _groundMask:
@@ -105,6 +105,7 @@ MonoBehaviour:
   _damageNeededForStun: 0.15
   _damangeStackingDuration: 2
   _gotHitNoise: {fileID: 8300000, guid: 0c8a1f233ef22514bac6651892140d0b, type: 3}
+  _gotStunnedNoise: {fileID: 0}
   _deathSound: {fileID: 8300000, guid: da23bb8e1e1226f4588fed86ab8b419a, type: 3}
 --- !u!54 &7880559512688185172
 Rigidbody:
@@ -393,6 +394,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   _partcilePoint: {fileID: 0}
+  _weaponTransform: {fileID: 0}
   _defaultAttackSound: {fileID: 0}
 --- !u!1 &8357228411299607270
 GameObject:

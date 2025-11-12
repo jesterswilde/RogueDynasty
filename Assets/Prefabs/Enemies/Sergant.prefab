@@ -82,7 +82,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7284613674257100342, guid: d468cec9c6f9ed54bb24eaade9c20210, type: 3}
       propertyPath: _maxHealth
-      value: 60
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 8733342213157435110, guid: d468cec9c6f9ed54bb24eaade9c20210, type: 3}
       propertyPath: _attackTable
@@ -90,11 +90,11 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 0c965d632d2f49d48a41e99a4c853a34, type: 2}
     - target: {fileID: 8733342213157435110, guid: d468cec9c6f9ed54bb24eaade9c20210, type: 3}
       propertyPath: _attackInterval.x
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8733342213157435110, guid: d468cec9c6f9ed54bb24eaade9c20210, type: 3}
       propertyPath: _attackInterval.y
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
