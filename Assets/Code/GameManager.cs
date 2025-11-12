@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour {
             if(_upgradeKils.Count > _nextUpgradeI && _upgradeKils[_nextUpgradeI] == _kill) {
                 _nextUpgradeI++;
                 _player.Char.MaxHealth += UpgradeManager.T.PerLevelhealthIncrease;
+                _player.Char.ModifyHealth(UpgradeManager.T.PerLevelhealthIncrease);
                 _player.GetComponent<Attacker>().AttackSpeedMod += UpgradeManager.T.AttackSpeedup;
                 var next = "MAX";
                 if (_upgradeKils.Count > _nextUpgradeI)
