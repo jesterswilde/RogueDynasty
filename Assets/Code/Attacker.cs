@@ -110,6 +110,7 @@ public class Attacker : MonoBehaviour {
         _char.Weapon.SetAttack(null);
         _anim.speed = 1f;
         _pSystem?.Stop();
+        //_anim.CrossFade("movementTree", 0.25f);
         IEnumerator AcceptAfter() {
             yield return new WaitForSeconds(0.5f);
             _isAcceptingInput = true;
