@@ -259,6 +259,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 640
   _partcilePoint: {fileID: 4446817733586037859}
+  _defaultAttackSound: {fileID: 8300000, guid: 8cbd7835e82938045b9639c98eb1883a, type: 3}
 --- !u!1 &5287138375274649715
 GameObject:
   m_ObjectHideFlags: 0
@@ -532,6 +533,9 @@ MonoBehaviour:
   _minSlopeSpeedFactor: 0.6
   _damageNeededForStun: 0.15
   _damangeStackingDuration: 2
+  _gotHitNoise: {fileID: 0}
+  _gotStunnedNoise: {fileID: 8300000, guid: 99a0a853daa9ba44ebdbd622708da5f3, type: 3}
+  _deathSound: {fileID: 0}
 --- !u!54 &4806957961265686404
 Rigidbody:
   m_ObjectHideFlags: 0

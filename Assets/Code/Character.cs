@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EzySlice;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -62,6 +63,8 @@ public class Character : MonoBehaviour, IHittable {
     [SerializeField]
     AudioClip _gotHitNoise;
     [SerializeField]
+    AudioClip _gotStunnedNoise;
+    [SerializeField]
     AudioClip _deathSound;
 
 
@@ -73,19 +76,23 @@ public class Character : MonoBehaviour, IHittable {
     public void GotHitBy(AttackData attack) {
         _health -= attack.Damage;
         _recentDamage.Add((_health, Time.time));
-        HandleStun(attack);
+        var gottunned = HandleStun(attack);
         OnHealthChange?.Invoke(_health);
-        if(_health > 0) 
-            GameManager.T.PlayAudio(_gotHitNoise);
+        if(_health > 0) {
+            if(gottunned)
+                GameManager.T.PlayAudio(_gotStunnedNoise);
+            else
+                GameManager.T.PlayAudio(_gotHitNoise);
+        }
         if (_health <= 0) {
             GameManager.T.PlayAudio(_deathSound);
             Die(attack);
         }
     }
 
-    void HandleStun(AttackData attack) {
+    bool HandleStun(AttackData attack) {
         if (_isStunned)
-            return;
+            return false;
         _isStunned = attack.Attack.Stuns;
         if (!_isStunned) {
             var now = Time.time;
@@ -102,6 +109,7 @@ public class Character : MonoBehaviour, IHittable {
             _anim.Play("isHit");
             _animWatcher.OnAnimEnd("isHit", StunOver);
         }
+        return _isStunned;
     }
     void StunOver() {
         _isStunned = false;
