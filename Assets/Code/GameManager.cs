@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using Sirenix.Utilities;
 using UnityEngine;
 
@@ -111,11 +112,19 @@ public class GameManager : MonoBehaviour {
             yield return new WaitForSeconds(track.length);
         }
     }
+    bool _isStarting = true;
+    void Update() {
+        if(_isStarting && Input.GetMouseButtonDown(0)) {
+            _isStarting = false;
+            UIManager.T.CloseScreen();
+        }        
+    }
     void Start() {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         StartCoroutine(PlayNextSong());
         UIManager.T.UpdateNextUpgrade(_upgradeKils[0].ToString());
+        UIManager.T.ShowStartGameScreen();
     }
     void Awake() {
         if (t != null) {

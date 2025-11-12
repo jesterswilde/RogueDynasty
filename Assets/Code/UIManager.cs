@@ -16,8 +16,20 @@ public class UIManager : MonoBehaviour {
     TMPro.TextMeshProUGUI _nextUpgradeAt;
     [SerializeField]
     UpgradeScreen _upgradeScreenPrefab;
+    [SerializeField]
+    GameObject _gameStartPrefab;
+    [SerializeField]
+    GameObject _gameEndPrefab;
     GameObject _screen;
 
+    public void ShowStartGameScreen() {
+        _screen = Instantiate(_gameStartPrefab, transform);
+    }
+    public void ShowEndGameScreen() {
+        _screen = Instantiate(_gameEndPrefab, transform);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
     public void UpdateNextUpgrade(string next) {
         _nextUpgradeAt.text = next;
     }

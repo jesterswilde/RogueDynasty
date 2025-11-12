@@ -166,3 +166,19 @@ public class DestructableObject : MonoBehaviour, IHittable {
         _lastPos = transform.position;
     }
 }
+
+
+public class SpawnTrigger : MonoBehaviour{
+    [SerializeField]
+    GameObject _prefab;
+    bool _hasSpawned = false;
+
+    void OnTriggerEnter(Collider other) {
+        if (_hasSpawned)
+            return;
+        _hasSpawned = true;
+       if(other.gameObject.layer == 6) {
+            Instantiate(_prefab);
+        }
+    }
+}

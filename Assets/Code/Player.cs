@@ -11,6 +11,9 @@ public class Player : MonoBehaviour {
     void UpdateHealthUI(float health) {
         UIManager.T.UpdateHealth(health, _char.MaxHealth);
     }
+    void OnDeath() {
+        UIManager.T.ShowEndGameScreen();
+    }
     void Update() {
         if (_char.IsStunned || _char.IsDead)
             return;
@@ -41,6 +44,7 @@ public class Player : MonoBehaviour {
     void Start() {
         UpdateHealthUI(_char.MaxHealth);
         _char.OnHealthChange += UpdateHealthUI;
+        _char.OnDeath += OnDeath;
     }
     void Awake()
     {
