@@ -152,6 +152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 50
   _breakVelocity: 3
+  _isRoot: 1
   _hitSound: {fileID: 8300000, guid: 83a8a0381d1bd7745a4d12f5127385fb, type: 3}
   _destroyedSound: {fileID: 8300000, guid: efc6ab35be70fc443aa14ec8e129a3ba, type: 3}
   _soundToDepth: 2

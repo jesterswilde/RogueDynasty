@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using EzySlice;
+using TMPro;
 using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.Video;
@@ -16,6 +17,8 @@ public class DestructableObject : MonoBehaviour, IHittable {
     Vector3 _lastPos;
     float _maxSpeed = 20;
     Rigidbody _rigid;
+    [SerializeField]
+    bool _isRoot;
     [SerializeField]
     AudioClip _hitSound;
     [SerializeField]
@@ -138,13 +141,9 @@ public class DestructableObject : MonoBehaviour, IHittable {
         Destroy(gameObject);
     }
 
-    IEnumerator EnableGetHit() {
-        yield return new WaitForSeconds(1);
-        _canBeHit = true;
-    }
     void FixedUpdate() {
-        if (_rigid.IsSleeping())
-            return;
+        //if (_rigid.IsSleeping())
+        //    return;
         //var spdSqr = Time.fixedDeltaTime * _maxSpeed;
         //spdSqr *= spdSqr;
         //var travelDist = (_lastPos - transform.position).sqrMagnitude;
@@ -156,13 +155,20 @@ public class DestructableObject : MonoBehaviour, IHittable {
         //    _lastPos = transform.position;
     }
 
-    void Start() {
-        StartCoroutine(EnableGetHit());
-    }
-
+    //IEnumerator EnablePhyiscs() {
+    //    yield return new WaitForSeconds(2f);
+    //    transform.position += Vector3.up * 0.3f;
+    //    _rigid.useGravity = true;
+    //    _rigid.isKinematic = false;
+    //}
     void Awake() {
         _health = _maxHealth;
         _rigid = GetComponent<Rigidbody>();
-        _lastPos = transform.position;
+        if (_isRoot) {
+            _rigid.useGravity = false;
+            //_rigid.isKinematic = true;
+            //StartCoroutine(EnablePhyiscs());
+        }
+        //_lastPos = transform.position;
     }
 }
