@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class UpgradeCard : MonoBehaviour, IPointerDownHandler{
-    bool _canPick = true;
+    bool _canPick = false;
     [SerializeField]
     TMPro.TextMeshProUGUI _title;
     [SerializeField]
