@@ -3,9 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using EzySlice;
 using TMPro;
-using UnityEditor.PackageManager;
 using UnityEngine;
-using UnityEngine.Video;
 
 public class DestructableObject : MonoBehaviour, IHittable {
     [SerializeField]
@@ -33,6 +31,7 @@ public class DestructableObject : MonoBehaviour, IHittable {
             return;
 
         _health -= attack.Damage;
+        Debug.Log($"{name} got hit and has {_health}");
         if (_health > 0 && _hitSound != null) {
             GameManager.T.PlayAudio(_hitSound);
         }
@@ -155,20 +154,15 @@ public class DestructableObject : MonoBehaviour, IHittable {
         //    _lastPos = transform.position;
     }
 
-    //IEnumerator EnablePhyiscs() {
-    //    yield return new WaitForSeconds(2f);
-    //    transform.position += Vector3.up * 0.3f;
-    //    _rigid.useGravity = true;
-    //    _rigid.isKinematic = false;
-    //}
+    IEnumerator SetCanBeHit() {
+        yield return new WaitForSeconds(0.5f);
+        _canBeHit = true;
+    }
+    void Start() {
+        StartCoroutine(SetCanBeHit());
+    }
     void Awake() {
         _health = _maxHealth;
         _rigid = GetComponent<Rigidbody>();
-        if (_isRoot) {
-            _rigid.useGravity = false;
-            //_rigid.isKinematic = true;
-            //StartCoroutine(EnablePhyiscs());
-        }
-        //_lastPos = transform.position;
     }
 }

@@ -92,8 +92,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 1
-  _breakVelocity: 0.5
-  _isRoot: 1
+  _breakVelocity: 3
+  _isRoot: 0
   _hitSound: {fileID: 8300000, guid: 83a8a0381d1bd7745a4d12f5127385fb, type: 3}
   _destroyedSound: {fileID: 8300000, guid: efc6ab35be70fc443aa14ec8e129a3ba, type: 3}
   _soundToDepth: 2
@@ -118,7 +118,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: 2534964839176971238, guid: 75e0088798f23e84e86f8cc55c098025, type: 3}
+  m_Mesh: {fileID: -7016030322194801813, guid: 75e0088798f23e84e86f8cc55c098025, type: 3}
 --- !u!54 &2822769559643168246
 Rigidbody:
   m_ObjectHideFlags: 0
