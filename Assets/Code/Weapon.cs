@@ -12,6 +12,8 @@ public class Weapon : MonoBehaviour {
     Transform _attackPoint;
     [SerializeField]
     LayerMask _mask;
+    [SerializeField]
+    Transform _partcilePoint;
     Vector3 _lastPos = Vector3.zero;
     HashSet<Sliceable> currentlySliced = new();
     List<IHittable> _alreadyHit = new();
@@ -36,16 +38,19 @@ public class Weapon : MonoBehaviour {
             FromOrigin = (_attackPoint.position - _origin.transform.position).normalized,
             Attack = _curAttack
         };
-        //var xMin = Mathf.Min(a.x, Mathf.Min(b.x, c.x));
-        //var yMin = Mathf.Min(a.y, Mathf.Min(b.y, c.y));
-        //var zMin = Mathf.Min(a.z, Mathf.Min(b.z, c.z));
-        //var xMax = Mathf.Max(a.x, Mathf.Max(b.x, c.x));
-        //var yMax = Mathf.Max(a.y, Mathf.Max(b.y, c.y));
-        //var zMax = Mathf.Max(a.z, Mathf.Max(b.z, c.z));
-        //Debug.Log($"{xMax - xMin} {yMax - yMin} {zMax - zMin}");
         foreach (var h in hittables) {
             _alreadyHit.Add(h);
             h.GotHitBy(attackData);
+            var pos = transform.position + transform.up;
+            if (_partcilePoint != null)
+                pos = _partcilePoint.position;
+            if(h.HType == HittableType.Object) 
+                ParticleManager.T.MakeObjectHitAtSpot(pos);
+            else 
+                if (attackData.Attack.Stuns) 
+                    ParticleManager.T.MakeStunAtSpot(pos);
+                else
+                    ParticleManager.T.MakeHitAtSpot(pos);
         }
     }
     void Update() {

@@ -15,7 +15,8 @@ MonoBehaviour:
   Name: 1hStab01
   AnimName: 1h01L
   Damage: 20
+  AttackSpeed: 1.2
   isHoldable: 0
   endsCombo: 0
   isLoopable: 0
-  Stuns: 0
+  Stuns: 1

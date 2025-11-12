@@ -63,6 +63,9 @@ public class Character : MonoBehaviour, IHittable {
 
     public bool IsDead => _isDead;
 
+    HittableType IHittable.HType => HittableType.Character;
+
+
     public void GotHitBy(AttackData attack) {
         _health -= attack.Damage;
         Debug.Log($"{name} got hit by {attack.Attack.name} {_health} {attack.Damage}");

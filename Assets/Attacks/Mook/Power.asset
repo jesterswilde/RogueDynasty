@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: polearm01
   AnimName: polearm01
-  Damage: 10
+  Damage: 12
+  AttackSpeed: 0.8
   isHoldable: 0
   endsCombo: 0
   isLoopable: 1

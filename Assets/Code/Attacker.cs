@@ -78,7 +78,7 @@ public class Attacker : MonoBehaviour {
         }
         if(_curAttack?.isLoopable != true)
             _curAttackI++;
-        _anim.speed = _curAttack.AttackSpeed;
+        _anim.speed = _curAttack?.AttackSpeed ?? 1;
         _curAttackBranch = _queuedAttack;
         var attackList = _curAttackBranch == 0 ? _basicAttacks : _powerAttacks;
         if (attackList.Count <= _curAttackI || _curAttack?.endsCombo == true) {

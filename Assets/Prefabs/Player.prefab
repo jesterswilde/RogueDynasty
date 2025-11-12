@@ -162,7 +162,8 @@ Transform:
   m_LocalPosition: {x: -0.02, y: 3.16, z: -0.01}
   m_LocalScale: {x: 1.3018656, y: 2.264459, z: 0.65855205}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4446817733586037859}
   m_Father: {fileID: 3567229320148311780}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &673002399504797958
@@ -257,6 +258,7 @@ MonoBehaviour:
   _mask:
     serializedVersion: 2
     m_Bits: 640
+  _partcilePoint: {fileID: 4446817733586037859}
 --- !u!1 &5287138375274649715
 GameObject:
   m_ObjectHideFlags: 0
@@ -398,6 +400,37 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &7243768241127971037
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4446817733586037859}
+  m_Layer: 0
+  m_Name: ParticlePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4446817733586037859
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7243768241127971037}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.41, y: 1.08, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6183089976019708442}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7285702722654967146
 GameObject:
   m_ObjectHideFlags: 0
@@ -467,13 +500,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3982838f863ff8046950da72590a6e3a, type: 2}
   - {fileID: 11400000, guid: d4af6cdc616231946ab8221e80872853, type: 2}
   - {fileID: 11400000, guid: 88382538416866840b8f45b7cc3255fa, type: 2}
-  _pAnimStart: 0.1
-  _pAnimEnd: 0.5
   _powerAttacks:
   - {fileID: 11400000, guid: 29bf2180d931de7479fb53d497a9f7cc, type: 2}
   - {fileID: 11400000, guid: b9e698c140ac7d64eb6d6dd483e295e9, type: 2}
   - {fileID: 11400000, guid: 6720bd07efaa3f940b289936488a5b59, type: 2}
   - {fileID: 11400000, guid: 2ca1eebe99ddeb6478ec5c9f303a6577, type: 2}
+  _pAnimStart: 0.1
+  _pAnimEnd: 0.5
 --- !u!114 &772414380885354417
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -15,6 +15,7 @@ MonoBehaviour:
   Name: polearm01
   AnimName: polearm01
   Damage: 20
+  AttackSpeed: 1.2
   isHoldable: 0
   endsCombo: 0
   isLoopable: 1

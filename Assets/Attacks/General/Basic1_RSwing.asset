@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: RSwing01
   AnimName: mAttackOmni
-  Damage: 10
+  Damage: 15
+  AttackSpeed: 1.2
   isHoldable: 0
   endsCombo: 0
   isLoopable: 0
+  Stuns: 0

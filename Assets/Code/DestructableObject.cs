@@ -16,6 +16,7 @@ public class DestructableObject : MonoBehaviour, IHittable {
     Rigidbody _rigid;
 
 
+    HittableType IHittable.HType => HittableType.Object;
     public void GotHitBy(AttackData attack) {
         if (!_canBeHit)
             return;

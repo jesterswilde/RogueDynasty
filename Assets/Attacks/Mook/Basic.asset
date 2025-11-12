@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: LSwing01
   AnimName: 1h01
-  Damage: 10
+  Damage: 7
+  AttackSpeed: 0.8
   isHoldable: 0
   endsCombo: 0
   isLoopable: 0
