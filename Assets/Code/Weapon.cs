@@ -15,11 +15,14 @@ public class Weapon : MonoBehaviour {
     [SerializeField]
     Transform _partcilePoint;
     [SerializeField]
+    Transform _weaponTransform;
+    public Transform WeaponXForm => _weaponTransform;
+    [SerializeField]
     AudioClip _defaultAttackSound;
     Vector3 _lastPos = Vector3.zero;
-    HashSet<Sliceable> currentlySliced = new();
     List<IHittable> _alreadyHit = new();
     public List<IHittable> Slices => _alreadyHit;
+    public float DamageIncrease { get; set; } = 0f;
     public void SetAttack(AttackDesc attack) {
         _curAttack = attack;
         _alreadyHit = new();
@@ -39,7 +42,7 @@ public class Weapon : MonoBehaviour {
         if (hittables.Count() == 0)
             return;
         var attackData = new AttackData {
-            Damage = _curAttack.Damage,
+            Damage = _curAttack.Damage + DamageIncrease,
             HitPlane = Slicer.CreatePlaneFromPoints(_attackPoint.position, _attackPoint.position + _attackPoint.up, _lastPos),
             HitPosition = _attackPoint.position,
             HitDirection = (_attackPoint.position - _lastPos).normalized,

@@ -26,6 +26,7 @@ public class Attacker : MonoBehaviour {
     float _pAnimStart = 0.2f;
     [SerializeField]
     float _pAnimEnd = 0.2f;
+    public float AttackSpeedMod { get; set; } = 0;
 
     Animator _anim;
     AnimWatcher _animWatcher;
@@ -78,7 +79,7 @@ public class Attacker : MonoBehaviour {
         }
         if(_curAttack?.isLoopable != true)
             _curAttackI++;
-        _anim.speed = _curAttack?.AttackSpeed ?? 1;
+        _anim.speed = (_curAttack?.AttackSpeed ?? 1) + AttackSpeedMod;
         _curAttackBranch = _queuedAttack;
         var attackList = _curAttackBranch == 0 ? _basicAttacks : _powerAttacks;
         if (attackList.Count <= _curAttackI || _curAttack?.endsCombo == true) {

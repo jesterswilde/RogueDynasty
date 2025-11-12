@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +12,18 @@ public class UIManager : MonoBehaviour {
     TMPro.TextMeshProUGUI _healthText;
     [SerializeField]
     TMPro.TextMeshProUGUI _killCount;
+    [SerializeField]
+    UpgradeScreen _upgradeScreenPrefab;
+    GameObject _screen;
+
+    public void ShowUpgrades(List<UpgradeChoice> choices, Action<UpgradeChoice> cb) {
+        var screen = Instantiate(_upgradeScreenPrefab, transform);
+        screen.DisplayOptions(choices, cb);
+        _screen = screen.gameObject;
+    }
+    public void CloseScreen() {
+        Destroy(_screen);
+    }
     void UpdateKillCount(int count) {
         _killCount.text = count.ToString();
     }

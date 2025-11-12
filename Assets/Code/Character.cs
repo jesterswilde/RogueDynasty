@@ -16,7 +16,7 @@ public class Character : MonoBehaviour, IHittable {
     float _jumpSpeed = 7f;
     [SerializeField]
     float _maxHealth = 100f;
-    public float MaxHealth => _maxHealth;
+    public float MaxHealth { get => _maxHealth; set => _maxHealth = value; }
     [SerializeField]
     float _health;
     public float Health => _health;
@@ -167,11 +167,25 @@ public class Character : MonoBehaviour, IHittable {
         var bakedObjects = SkinnedMeshBaker.BakeHiearchy(gameObject);
 
         foreach (var baked in bakedObjects) {
-            var avgPos = (data.HitPosition + (3 * (transform.position + transform.up))) / 4;
+            var center = baked.GetComponent<Renderer>().bounds.center;
+            var avgPos = (data.HitPosition + (6 * center)) / 7;
             var sliced = baked.SliceInstantiate(data.HitPosition, data.HitPlane.normal, GameManager.T.Innards);
 
             if (sliced == null || !sliced.Any()) {
-                Destroy(baked);
+                baked.layer = 9;
+
+                var meshCollider = baked.AddComponent<MeshCollider>();
+                meshCollider.convex = true;
+
+                var rb = baked.AddComponent<Rigidbody>();
+                rb.useGravity = true;
+                rb.mass = 2f;
+                rb.linearDamping = 0.2f;
+                rb.angularDamping = 0.5f;
+                rb.interpolation = RigidbodyInterpolation.Interpolate;
+                rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+                rb.AddForce(data.HitDirection * 20 * rb.mass, ForceMode.Impulse);
+                baked.AddComponent<DestructableObject>();
                 continue;
             }
 
@@ -203,7 +217,7 @@ public class Character : MonoBehaviour, IHittable {
                 piece.transform.position += data.HitPlane.normal * separation * side;
                 piece.layer = 9;
 
-                piece.AddComponent<DepenetrateOnSpawn>();
+                var dest = piece.AddComponent<DestructableObject>();
 
                 const float impulseStrength = 1.5f;
                 rb.AddForce(data.HitPlane.normal * side * impulseStrength, ForceMode.Impulse);
@@ -291,6 +305,55 @@ public class Character : MonoBehaviour, IHittable {
             // Kinematic – use MovePosition
             Vector3 targetPos = transform.position + desiredVel * Time.fixedDeltaTime;
             _rigid.MovePosition(targetPos);
+        }
+    }
+    [Serializable]
+    public struct BisectionResult {
+        public Vector3 Center;
+        public UnityEngine.Plane Plane;
+    }
+    public BisectionResult GetBisection() {
+        Renderer[] renderers = GetComponentsInChildren<Renderer>();
+
+        // If there are no renderers at all, fall back to transform position.
+        if (renderers == null || renderers.Length == 0)
+        {
+            Vector3 fallback = transform.position;
+            return new BisectionResult() { Center = fallback, Plane = new UnityEngine.Plane(Vector3.up, fallback)};
+        }
+
+        // Prefer enabled & active renderers (what's actually visible)
+        Bounds combined;
+        bool hasValid = false;
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            var r = renderers[i];
+            if (r != null && r.gameObject.activeInHierarchy && r.enabled)
+            {
+                combined = r.bounds;
+                hasValid = true;
+
+                // Encapsulate remaining valid renderers
+                for (int j = 0; j < renderers.Length; j++)
+                {
+                    var r2 = renderers[j];
+                    if (r2 != null && r2.gameObject.activeInHierarchy && r2.enabled)
+                        combined.Encapsulate(r2.bounds);
+                }
+
+                Vector3 center = combined.center;
+                return new BisectionResult() { Center = center, Plane = new UnityEngine.Plane(Vector3.up, center)};
+            }
+        }
+
+        // If none are enabled/active, use all renderers’ bounds as a fallback.
+        combined = renderers[0].bounds;
+        for (int i = 1; i < renderers.Length; i++)
+            combined.Encapsulate(renderers[i].bounds);
+
+        {
+            Vector3 center = combined.center;
+            return new BisectionResult() { Center = center, Plane = new UnityEngine.Plane(Vector3.up, center) };
         }
     }
 
