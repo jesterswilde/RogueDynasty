@@ -54,6 +54,8 @@ MonoBehaviour:
     m_Bits: 0
   _bgm:
   - {fileID: 8300000, guid: ad23c62dcef47334b94e15f6f4748ec1, type: 3}
+  - {fileID: 8300000, guid: 8262c4ce6e8a0ea43bd0d97067dab2ce, type: 3}
+  - {fileID: 8300000, guid: 3aa945f2963a3c3489b9c1b212cb188a, type: 3}
   _upgradeKils: 030000000a0000001900000032000000
 --- !u!82 &3787205712682074467
 AudioSource:
@@ -68,13 +70,13 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.687
   m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 108
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -248,6 +250,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2882f366359cf6d4493640186e89db1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: _upgradeAttacks
+      Entry: 6
+      Data: 
   _initialPlayerSpeed: -0.6
   _perLevelHealthIncrease: 5
   _attackSpeedup: 0.1
