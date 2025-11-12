@@ -2779,6 +2779,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4429243554041345643, guid: cec06fb258fbed248938c574937c1fff, type: 3}
+      propertyPath: _basicAttacks.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4429243554041345643, guid: cec06fb258fbed248938c574937c1fff, type: 3}
+      propertyPath: '_basicAttacks.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 3a344fbc06bc29d43b252a38e7cdfe39, type: 2}
+    - target: {fileID: 4429243554041345643, guid: cec06fb258fbed248938c574937c1fff, type: 3}
+      propertyPath: '_basicAttacks.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 332a57cdfba1d684cb97dfc95f991903, type: 2}
+    - target: {fileID: 4429243554041345643, guid: cec06fb258fbed248938c574937c1fff, type: 3}
+      propertyPath: '_basicAttacks.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: abf6463de29c40e4b8e64b6e672737fd, type: 2}
+    - target: {fileID: 4429243554041345643, guid: cec06fb258fbed248938c574937c1fff, type: 3}
+      propertyPath: '_basicAttacks.Array.data[3]'
+      value: 
+      objectReference: {fileID: 11400000, guid: e6897e82e1924494baa8853b307c3a06, type: 2}
+    - target: {fileID: 4429243554041345643, guid: cec06fb258fbed248938c574937c1fff, type: 3}
+      propertyPath: '_basicAttacks.Array.data[5]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 332a57cdfba1d684cb97dfc95f991903, type: 2}
     - target: {fileID: 6183089976019708442, guid: cec06fb258fbed248938c574937c1fff, type: 3}
       propertyPath: m_LocalScale.x
       value: 2.465831
