@@ -145,15 +145,15 @@ public class DestructableObject : MonoBehaviour, IHittable {
     void FixedUpdate() {
         if (_rigid.IsSleeping())
             return;
-        var spdSqr = Time.fixedDeltaTime * _maxSpeed;
-        spdSqr *= spdSqr;
-        var travelDist = (_lastPos - transform.position).sqrMagnitude;
-        if (travelDist > spdSqr) {
-            transform.position = _lastPos;
-            _rigid.linearVelocity = Vector3.zero;
-        }
-        else
-            _lastPos = transform.position;
+        //var spdSqr = Time.fixedDeltaTime * _maxSpeed;
+        //spdSqr *= spdSqr;
+        //var travelDist = (_lastPos - transform.position).sqrMagnitude;
+        //if (travelDist > spdSqr) {
+        //    transform.position = _lastPos;
+        //    _rigid.linearVelocity = Vector3.zero;
+        //}
+        //else
+        //    _lastPos = transform.position;
     }
 
     void Start() {
@@ -164,21 +164,5 @@ public class DestructableObject : MonoBehaviour, IHittable {
         _health = _maxHealth;
         _rigid = GetComponent<Rigidbody>();
         _lastPos = transform.position;
-    }
-}
-
-
-public class SpawnTrigger : MonoBehaviour{
-    [SerializeField]
-    GameObject _prefab;
-    bool _hasSpawned = false;
-
-    void OnTriggerEnter(Collider other) {
-        if (_hasSpawned)
-            return;
-        _hasSpawned = true;
-       if(other.gameObject.layer == 6) {
-            Instantiate(_prefab);
-        }
     }
 }
