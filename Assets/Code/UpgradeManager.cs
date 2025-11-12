@@ -69,9 +69,9 @@ public class UpgradeManager : SerializedMonoBehaviour {
         new() {
             ID = "VampirismI",
             Title = "Vampirism",
-            Text = "Drink the spilled essence of the fallen. Heal 3 health per kill.",
+            Text = "Drink the spilled essence of the fallen. Heal 2 health per kill.",
             RequiredIDs = new(){"SpeedIncreaseI" },
-            OnPurchase = (player)=> GameManager.T.OnKillHealthGain += 3,
+            OnPurchase = (player)=> GameManager.T.OnKillHealthGain += 2,
             Repeatable = true
         },
         new() {
