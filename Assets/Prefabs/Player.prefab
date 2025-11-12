@@ -497,16 +497,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _basicAttacks:
-  - {fileID: 11400000, guid: 88382538416866840b8f45b7cc3255fa, type: 2}
-  - {fileID: 11400000, guid: c255e963b7dc1cf4c86cba7400aa518a, type: 2}
-  - {fileID: 11400000, guid: 3982838f863ff8046950da72590a6e3a, type: 2}
-  - {fileID: 11400000, guid: d4af6cdc616231946ab8221e80872853, type: 2}
-  - {fileID: 11400000, guid: 88382538416866840b8f45b7cc3255fa, type: 2}
-  _powerAttacks:
-  - {fileID: 11400000, guid: 29bf2180d931de7479fb53d497a9f7cc, type: 2}
-  - {fileID: 11400000, guid: b9e698c140ac7d64eb6d6dd483e295e9, type: 2}
-  - {fileID: 11400000, guid: 6720bd07efaa3f940b289936488a5b59, type: 2}
-  - {fileID: 11400000, guid: 2ca1eebe99ddeb6478ec5c9f303a6577, type: 2}
+  - {fileID: 11400000, guid: 3a344fbc06bc29d43b252a38e7cdfe39, type: 2}
+  - {fileID: 11400000, guid: 332a57cdfba1d684cb97dfc95f991903, type: 2}
+  _powerAttacks: []
   _pAnimStart: 0.1
   _pAnimEnd: 0.5
 --- !u!114 &772414380885354417
@@ -629,12 +622,12 @@ PrefabInstance:
       value: "\nBinding warning: Some generic clip(s) animate transforms that are
         already bound by a Humanoid avatar. These transforms can only be changed
         by Humanoid clips.\n\tTransform 'B-handProp.R'\n\tTransform 'B-handProp.L'\n\tTransform
-        'B-handProp.R'\n\tTransform 'B-handProp.L'\n\tFrom animation clip 'HumanM@CombatIdle1H01'\n\tFrom
-        animation clip 'HumanM@Walk01_Forward'\n\tFrom animation clip 'HumanM@Run01_Forward'\n\tFrom
-        animation clip 'HumanM@Walk01_Backward'\n\tFrom animation clip 'HumanM@Run01_Backward'\n\tFrom
-        animation clip 'HumanM@StrafeRun01_Right'\n\tFrom animation clip 'HumanM@StrafeRun01_Left'\n\tFrom
-        animation clip 'HumanM@AttackPolearm01'\n\tFrom animation clip 'HumanM@Attack2H01'\n\tFrom
-        animation clip 'HumanM@Attack1H01_R'\n\tand more ..."
+        'B-handProp.R'\n\tTransform 'B-handProp.L'\n\tFrom animation clip 'HumanM@Walk01_Forward'\n\tFrom
+        animation clip 'HumanM@Run01_Forward'\n\tFrom animation clip 'HumanM@Walk01_Backward'\n\tFrom
+        animation clip 'HumanM@Run01_Backward'\n\tFrom animation clip 'HumanM@StrafeRun01_Right'\n\tFrom
+        animation clip 'HumanM@StrafeRun01_Left'\n\tFrom animation clip 'HumanM@AttackPolearm01'\n\tFrom
+        animation clip 'HumanM@Attack2H01'\n\tFrom animation clip 'HumanM@Attack1H01_R'\n\tFrom
+        animation clip 'HumanM@AttackShield01'\n\tand more ..."
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

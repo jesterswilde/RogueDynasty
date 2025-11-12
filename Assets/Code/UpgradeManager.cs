@@ -145,6 +145,23 @@ public class UpgradeManager : SerializedMonoBehaviour {
                     a[3] = attack;
                 }
             }
+        },
+        new() {
+            ID = "PA1",
+            Title = "Attack: Power Strick",
+            Text = "Gain 1st Power Attack. A strong forward thrust.",
+            OnPurchase = (player) => {
+                var attack = T.GetAttackByName("p1");
+                if(attack == null)
+                    throw new Exception($"No attack named p1");
+                var a = player.GetComponent<Attacker>().PowerAttacks;
+                if(a.Count == 0) {
+                    a.Add(attack);
+                }
+                else {
+                    a[0] = attack;
+                }
+            }
         }
     };
 

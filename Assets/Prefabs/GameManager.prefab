@@ -51,7 +51,7 @@ MonoBehaviour:
   _innards: {fileID: 2100000, guid: 21098d8e6e1833249813414d5c58a301, type: 2}
   _enemiesMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   _bgm:
   - {fileID: 8300000, guid: ad23c62dcef47334b94e15f6f4748ec1, type: 3}
   - {fileID: 8300000, guid: 8262c4ce6e8a0ea43bd0d97067dab2ce, type: 3}
@@ -253,14 +253,66 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects: []
+    ReferencedUnityObjects:
+    - {fileID: 11400000, guid: abf6463de29c40e4b8e64b6e672737fd, type: 2}
+    - {fileID: 11400000, guid: e6897e82e1924494baa8853b307c3a06, type: 2}
+    - {fileID: 11400000, guid: d3480f525ff8a264e9d94b9bd5cf974c, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
     - Name: _upgradeAttacks
-      Entry: 6
+      Entry: 7
+      Data: 0|System.Collections.Generic.List`1[[System.ValueTuple`2[[System.String,
+        mscorlib],[AttackDesc, Assembly-CSharp]], mscorlib]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: System.ValueTuple`2[[System.String, mscorlib],[AttackDesc, Assembly-CSharp]],
+        mscorlib
+    - Name: Item1
+      Entry: 1
+      Data: b3
+    - Name: Item2
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: System.ValueTuple`2[[System.String, mscorlib],[AttackDesc, Assembly-CSharp]],
+        mscorlib
+    - Name: Item1
+      Entry: 1
+      Data: b4
+    - Name: Item2
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: System.ValueTuple`2[[System.String, mscorlib],[AttackDesc, Assembly-CSharp]],
+        mscorlib
+    - Name: Item1
+      Entry: 1
+      Data: p1
+    - Name: Item2
+      Entry: 10
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
       Data: 
   _initialPlayerSpeed: -0.6
   _perLevelHealthIncrease: 5
