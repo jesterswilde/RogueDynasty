@@ -1,7 +1,7 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Sirenix.Utilities;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour {
@@ -13,6 +13,9 @@ public class GameManager : MonoBehaviour {
     Material _innards;
     [SerializeField]
     LayerMask _enemiesMask;
+    [SerializeField]
+    List<AudioClip> _bgm;
+    AudioSource _audio;
     public Material Innards => _innards;
     public Config Config => _config;
     Player _player;
@@ -94,9 +97,19 @@ public class GameManager : MonoBehaviour {
         return characters;
     }
 
+    IEnumerator PlayNextSong() {
+        while (true) {
+            var i = UnityEngine.Random.Range(0, _bgm.Count);
+            var track = _bgm[i];
+            _audio.clip = track;
+            _audio.Play();
+            yield return new WaitForSeconds(track.length);
+        }
+    }
     void Start() {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        StartCoroutine(PlayNextSong());
     }
     void Awake() {
         if (t != null) {
@@ -106,6 +119,7 @@ public class GameManager : MonoBehaviour {
         }
         t = this;
 
+        _audio = GetComponent<AudioSource>();
         _camera = FindFirstObjectByType<Camera>();
         _player = FindFirstObjectByType<Player>();
         _kill = 0;

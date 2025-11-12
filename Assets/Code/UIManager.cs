@@ -36,6 +36,9 @@ public class UIManager : MonoBehaviour {
     void Start() {
         GameManager.T.OnKill += UpdateKillCount;
     }
+    void PlayNext() {
+
+    }
     void Awake() {
         if (t != null)
         {

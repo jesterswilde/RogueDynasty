@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using Sirenix.Utilities;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -16,6 +18,13 @@ public class UpgradeManager : MonoBehaviour {
     float _attackSpeedup = 0.05f;
     public float AttackSpeedup => _attackSpeedup;
     public static UpgradeManager T => t;
+    HashSet<string> _takenUpgrades = new();
+    [SerializeField]
+    List<(string, AttackDesc)> _upgradeAttacks;
+
+    public AttackDesc GetAttackByName(string name) {
+        return _upgradeAttacks.First((a) => a.Item1 == name).Item2;
+    }
 
     public List<UpgradeChoice> GetChoices() {
         HashSet<string> pickedChoices = new();
@@ -23,12 +32,20 @@ public class UpgradeManager : MonoBehaviour {
         while(choices.Count < 3) {
             var i = UnityEngine.Random.Range(0, allUpgardes.Count);
             var option = allUpgardes[i];
+            if(option.RequiredIDs != null && option.RequiredIDs.Count > 0) {
+                var meetsReqs = option.RequiredIDs.All((r) => _takenUpgrades.Contains(r));
+                if (!meetsReqs)
+                    continue;
+            }
             if (!pickedChoices.Contains(option.ID)) {
                 pickedChoices.Add(option.ID);
                 choices.Add(option);
             }
         }
         return choices;
+    }
+    public void PickedUpgrade(string id) {
+        _takenUpgrades.Add(id);
     }
 
     List<UpgradeChoice> allUpgardes = new() {
@@ -90,6 +107,45 @@ public class UpgradeManager : MonoBehaviour {
             Text = "Your Corpse Explose radius is bigger!",
             OnPurchase = (player)=> GameManager.T.CorpseExplosionRadius += 3,
             Repeatable = true
+        },
+        new() {
+            ID = "BA3",
+            Title = "Attack: Slam",
+            Text = "Gain 3rd Attack in Basic Combo",
+            OnPurchase = (player) => {
+                var attack = T.GetAttackByName("b3");
+                if(attack == null)
+                    throw new Exception($"No attack named b3, need basic attack 3 ");
+                var a = player.GetComponent<Attacker>().BasicAttacks;
+                if(a.Count < 2)
+                    throw new Exception("Can't add to a smaller list than 2");
+                else if(a.Count == 2) {
+                    a.Add(attack);
+                }
+                else {
+                    a[2] = attack;
+                }
+            }
+        },
+        new() {
+            ID = "BA4",
+            Title = "Attack: Slam",
+            Text = "Gain 4th Attack in Basic Combo",
+            RequiredIDs = new(){"BA3" },
+            OnPurchase = (player) => {
+                var attack = T.GetAttackByName("b4");
+                if(attack == null)
+                    throw new Exception($"No attack named b4, need basic attack 4 ");
+                var a = player.GetComponent<Attacker>().BasicAttacks;
+                if(a.Count < 3)
+                    throw new Exception("Can't add to a smaller list than 3");
+                else if(a.Count == 3) {
+                    a.Add(attack);
+                }
+                else {
+                    a[3] = attack;
+                }
+            }
         }
     };
 
