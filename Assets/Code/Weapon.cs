@@ -44,6 +44,8 @@ public class Weapon : MonoBehaviour {
             var pos = transform.position + transform.up;
             if (_partcilePoint != null)
                 pos = _partcilePoint.position;
+            pos += h.transform.position;
+            pos /= 2f;
             if(h.HType == HittableType.Object) 
                 ParticleManager.T.MakeObjectHitAtSpot(pos);
             else 

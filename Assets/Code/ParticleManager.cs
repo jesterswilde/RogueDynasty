@@ -18,11 +18,11 @@ public class ParticleManager : MonoBehaviour {
     }
     public void MakeStunAtSpot(Vector3 pos) {
         var i = Random.Range(0, _stunEffects.Count);
-        Instantiate(_hitEffects[i], pos, Quaternion.identity);
+        Instantiate(_stunEffects[i], pos, Quaternion.identity);
     }
     public void MakeObjectHitAtSpot(Vector3 pos) {
         var i = Random.Range(0, _objectHitEffects.Count);
-        Instantiate(_hitEffects[i], pos, Quaternion.identity);
+        Instantiate(_objectHitEffects[i], pos, Quaternion.identity);
     }
     [SerializeField]
     void Awake() {
