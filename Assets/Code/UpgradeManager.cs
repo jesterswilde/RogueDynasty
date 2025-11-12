@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
-using UnityEditor.Rendering;
 using UnityEngine;
 
 public class UpgradeManager : SerializedMonoBehaviour {
