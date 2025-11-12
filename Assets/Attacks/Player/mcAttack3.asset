@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: mcAttack3
   AnimName: mcAttack3
-  Damage: 10
+  Damage: 40
   AttackSpeed: 1
   isHoldable: 0
   endsCombo: 0
   isLoopable: 0
-  Stuns: 0
+  Stuns: 1
   SoundFX: {fileID: 0}
