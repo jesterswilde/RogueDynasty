@@ -27,8 +27,8 @@ public class UIManager : MonoBehaviour {
     }
     public void ShowEndGameScreen() {
         _screen = Instantiate(_gameEndPrefab, transform);
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
     }
     public void UpdateNextUpgrade(string next) {
         _nextUpgradeAt.text = next;
