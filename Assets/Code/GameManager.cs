@@ -112,11 +112,15 @@ public class GameManager : MonoBehaviour {
             yield return new WaitForSeconds(track.length);
         }
     }
-    bool _isStarting = true;
+    public bool IsStarting { get; set; } = true;
+    IEnumerator ReturnControl() {
+        yield return new WaitForSeconds(0.5f);
+        IsStarting = false;
+    }
     void Update() {
-        if(_isStarting && Input.GetMouseButtonDown(0)) {
-            _isStarting = false;
+        if(IsStarting && Input.GetMouseButtonDown(0)) {
             UIManager.T.CloseScreen();
+            StartCoroutine(ReturnControl());
         }        
     }
     void Start() {

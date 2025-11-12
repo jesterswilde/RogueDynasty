@@ -15,7 +15,7 @@ public class Player : MonoBehaviour {
         UIManager.T.ShowEndGameScreen();
     }
     void Update() {
-        if (_char.IsStunned || _char.IsDead)
+        if (_char.IsStunned || _char.IsDead || GameManager.T.IsStarting)
             return;
         if (Input.GetMouseButtonDown(0))
             _attacker.QueueAttack(0);
