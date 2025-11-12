@@ -54,6 +54,10 @@ public class GameManager : MonoBehaviour {
                 _nextUpgradeI++;
                 _player.Char.MaxHealth += UpgradeManager.T.PerLevelhealthIncrease;
                 _player.GetComponent<Attacker>().AttackSpeedMod += UpgradeManager.T.AttackSpeedup;
+                var next = "MAX";
+                if (_upgradeKils.Count > _nextUpgradeI)
+                    next = _upgradeKils[_nextUpgradeI].ToString();
+                UIManager.T.UpdateNextUpgrade(next);
                 PickUpgrade();
             }
         }
@@ -110,6 +114,7 @@ public class GameManager : MonoBehaviour {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         StartCoroutine(PlayNextSong());
+        UIManager.T.UpdateNextUpgrade(_upgradeKils[0].ToString());
     }
     void Awake() {
         if (t != null) {

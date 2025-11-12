@@ -4,10 +4,12 @@ using UnityEngine;
 public class HealthPot : MonoBehaviour {
     [SerializeField]
     float _healAmount;
+    [SerializeField]
+    AudioClip _clip;
     Detector _detector;
     void PickedUp() {
         GameManager.T.Player.Char.ModifyHealth(_healAmount);
-        Debug.Log("picked up");
+        GameManager.T.PlayAudio(_clip);
         Destroy(gameObject);
     }
     void Start() {

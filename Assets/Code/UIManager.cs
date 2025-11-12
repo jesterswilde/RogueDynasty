@@ -13,9 +13,14 @@ public class UIManager : MonoBehaviour {
     [SerializeField]
     TMPro.TextMeshProUGUI _killCount;
     [SerializeField]
+    TMPro.TextMeshProUGUI _nextUpgradeAt;
+    [SerializeField]
     UpgradeScreen _upgradeScreenPrefab;
     GameObject _screen;
 
+    public void UpdateNextUpgrade(string next) {
+        _nextUpgradeAt.text = next;
+    }
     public void ShowUpgrades(List<UpgradeChoice> choices, Action<UpgradeChoice> cb) {
         var screen = Instantiate(_upgradeScreenPrefab, transform);
         screen.DisplayOptions(choices, cb);

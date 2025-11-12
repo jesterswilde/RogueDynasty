@@ -198,15 +198,19 @@ public class Enemy : MonoBehaviour {
 
     IEnumerator ScanForEnemies() {
         while (true) {
-            if(GameManager.T.Player == null)
-                yield return new WaitForSeconds(20);
             var scanInterval = GameManager.T.Config.EnemyScanInterval;
             var scanMask = GameManager.T.Config.EnemyScanMask;
             float waitTime = UnityEngine.Random.Range(scanInterval.x, scanInterval.y);
             yield return new WaitForSeconds(waitTime);
-            bool didSee = HasUnobstructedView(_eyePos.position, GameManager.T.Player.gameObject, scanMask);
-            if (didSee)
-                _squad.SawEnemy();
+            if(GameManager.T.Player == null) {
+                StopCoroutine(_scanCo);
+                yield return new WaitForSeconds(20);
+            }
+            else {
+                bool didSee = HasUnobstructedView(_eyePos.position, GameManager.T.Player.gameObject, scanMask);
+                if (didSee)
+                    _squad.SawEnemy();
+            }
         }
     }
 

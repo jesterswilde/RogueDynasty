@@ -4,9 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Assertions.Must;
 
 public class UpgradeManager : SerializedMonoBehaviour {
     static UpgradeManager t;

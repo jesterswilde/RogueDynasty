@@ -16,7 +16,7 @@ MonoBehaviour:
   EnemyScanInterval: {x: 2, y: 5}
   EnemyScanMask:
     serializedVersion: 2
-    m_Bits: 193
+    m_Bits: 65
   DesiredDistance: 3
   RepulseAtDistance: 5
   GroupForce: 0.6

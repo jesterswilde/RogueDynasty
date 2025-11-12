@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _healAmount: 10
+  _clip: {fileID: 8300000, guid: f240e4d78239e6d49a42e44eee943b2b, type: 3}
 --- !u!114 &3588625105704626760
 MonoBehaviour:
   m_ObjectHideFlags: 0
