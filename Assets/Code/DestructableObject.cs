@@ -14,6 +14,12 @@ public class DestructableObject : MonoBehaviour, IHittable {
     Vector3 _lastPos;
     float _maxSpeed = 20;
     Rigidbody _rigid;
+    [SerializeField]
+    AudioClip _hitSound;
+    [SerializeField]
+    AudioClip _destroyedSound;
+    [SerializeField]
+    int _soundToDepth = 2;
 
 
     HittableType IHittable.HType => HittableType.Object;
@@ -22,8 +28,10 @@ public class DestructableObject : MonoBehaviour, IHittable {
             return;
 
         _health -= attack.Damage;
-
-        if (_health <= 0) {
+        if(_health > 0 && _hitSound != null) {
+            GameManager.T.PlayAudio(_hitSound);
+        }
+        else if (_health <= 0) {
             transform.SetParent(null, worldPositionStays: true);
             // 1. Cache parent mass before we destroy this object
             float parentMass = 1f;
@@ -96,6 +104,12 @@ public class DestructableObject : MonoBehaviour, IHittable {
                     dest._breakVelocity = _breakVelocity;
                     dest._lastPos = s.transform.position;
                     dir *= -1;
+                    var nextDepth = _soundToDepth--;
+                    if(nextDepth >= 0) {
+                        dest._soundToDepth = nextDepth;
+                        dest._hitSound = _hitSound;
+                        dest._destroyedSound = _destroyedSound;
+                    }
                 }
             }
 

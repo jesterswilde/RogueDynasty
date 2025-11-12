@@ -10,4 +10,5 @@ public class AttackDesc: ScriptableObject {
     public bool endsCombo;
     public bool isLoopable;
     public bool Stuns;
+    public AudioClip SoundFX;
 }

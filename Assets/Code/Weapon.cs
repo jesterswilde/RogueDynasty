@@ -14,6 +14,8 @@ public class Weapon : MonoBehaviour {
     LayerMask _mask;
     [SerializeField]
     Transform _partcilePoint;
+    [SerializeField]
+    AudioClip _defaultAttackSound;
     Vector3 _lastPos = Vector3.zero;
     HashSet<Sliceable> currentlySliced = new();
     List<IHittable> _alreadyHit = new();
@@ -21,6 +23,12 @@ public class Weapon : MonoBehaviour {
     public void SetAttack(AttackDesc attack) {
         _curAttack = attack;
         _alreadyHit = new();
+        if (_curAttack == null)
+            return;
+        var soundToPlay = _defaultAttackSound;
+        if (_curAttack.SoundFX != null)
+            soundToPlay = _curAttack.SoundFX;
+        GameManager.T.PlayAudio(soundToPlay);
     }
     void OnTriggerEnter(Collider other) {
         if (_curAttack == null)

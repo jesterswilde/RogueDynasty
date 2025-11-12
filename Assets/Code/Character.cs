@@ -59,6 +59,10 @@ public class Character : MonoBehaviour, IHittable {
     float _damageNeededForStun = 0.15f;
     [SerializeField]
     float _damangeStackingDuration = 2f;
+    [SerializeField]
+    AudioClip _gotHitNoise;
+    [SerializeField]
+    AudioClip _deathSound;
 
 
     public bool IsDead => _isDead;
@@ -68,12 +72,15 @@ public class Character : MonoBehaviour, IHittable {
 
     public void GotHitBy(AttackData attack) {
         _health -= attack.Damage;
-        Debug.Log($"{name} got hit by {attack.Attack.name} {_health} {attack.Damage}");
         _recentDamage.Add((_health, Time.time));
         HandleStun(attack);
         OnHealthChange?.Invoke(_health);
-        if (_health <= 0)
+        if(_health > 0) 
+            GameManager.T.PlayAudio(_gotHitNoise);
+        if (_health <= 0) {
+            GameManager.T.PlayAudio(_deathSound);
             Die(attack);
+        }
     }
 
     void HandleStun(AttackData attack) {

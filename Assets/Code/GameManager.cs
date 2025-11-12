@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -21,6 +22,15 @@ public class GameManager : MonoBehaviour
             OnKill?.Invoke(_kill);
         } }
     public event Action<int> OnKill;
+    public void PlayAudio(AudioClip _clip) {
+        if (_clip == null)
+            return;
+        var go = new GameObject();
+        var a = go.AddComponent<AudioSource>();
+        a.clip = _clip;
+        a.Play();
+        go.AddComponent<SelfDeleteAudio>();
+    }
 
     void Start() {
         Cursor.lockState = CursorLockMode.Locked;
@@ -39,5 +49,18 @@ public class GameManager : MonoBehaviour
         _camera = FindFirstObjectByType<Camera>();
         _player = FindFirstObjectByType<Player>();
         _kill = 0;
+    }
+}
+
+public class SelfDeleteAudio : MonoBehaviour {
+    AudioSource _audio;
+
+    IEnumerator DestroySelf() {
+        yield return new WaitForSeconds(_audio.clip.length);
+        Destroy(gameObject);
+    }
+    void Start() {
+        _audio.GetComponent<AudioSource>();
+        StartCoroutine(DestroySelf());
     }
 }
