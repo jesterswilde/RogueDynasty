@@ -71,11 +71,11 @@ PrefabInstance:
     - target: {fileID: 4457511531900543713, guid: d468cec9c6f9ed54bb24eaade9c20210, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 7352f3b99e9e4cc4895ae3f3ae350bb8, type: 2}
+      objectReference: {fileID: 2100000, guid: d0146318264f5914b9ac8c82c687a990, type: 2}
     - target: {fileID: 6773001818559818113, guid: d468cec9c6f9ed54bb24eaade9c20210, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 7352f3b99e9e4cc4895ae3f3ae350bb8, type: 2}
+      objectReference: {fileID: 2100000, guid: d0146318264f5914b9ac8c82c687a990, type: 2}
     - target: {fileID: 7284613674257100342, guid: d468cec9c6f9ed54bb24eaade9c20210, type: 3}
       propertyPath: _speed
       value: 8
@@ -160,7 +160,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: ee37c63eb72262f498ad4775b36bf29c, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 7352f3b99e9e4cc4895ae3f3ae350bb8, type: 2}
+      objectReference: {fileID: 2100000, guid: d0146318264f5914b9ac8c82c687a990, type: 2}
     - target: {fileID: 919132149155446097, guid: ee37c63eb72262f498ad4775b36bf29c, type: 3}
       propertyPath: m_Name
       value: helmet01

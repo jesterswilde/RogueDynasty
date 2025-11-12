@@ -636,7 +636,7 @@ PrefabInstance:
     - target: {fileID: -8319419117901743189, guid: c8c8e3605f6241d428698b34839f2492, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 7352f3b99e9e4cc4895ae3f3ae350bb8, type: 2}
+      objectReference: {fileID: 2100000, guid: aa66ae78437d65c449a4fe381bd15bb2, type: 2}
     - target: {fileID: -7687097046278307549, guid: c8c8e3605f6241d428698b34839f2492, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -894,12 +894,12 @@ PrefabInstance:
       value: "\nBinding warning: Some generic clip(s) animate transforms that are
         already bound by a Humanoid avatar. These transforms can only be changed
         by Humanoid clips.\n\tTransform 'B-handProp.R'\n\tTransform 'B-handProp.L'\n\tTransform
-        'B-handProp.R'\n\tTransform 'B-handProp.L'\n\tFrom animation clip 'HumanM@CombatIdle1H01'\n\tFrom
-        animation clip 'HumanM@Walk01_Forward'\n\tFrom animation clip 'HumanM@Run01_Forward'\n\tFrom
-        animation clip 'HumanM@Walk01_Backward'\n\tFrom animation clip 'HumanM@Run01_Backward'\n\tFrom
-        animation clip 'HumanM@StrafeRun01_Right'\n\tFrom animation clip 'HumanM@StrafeRun01_Left'\n\tFrom
-        animation clip 'HumanM@AttackPolearm01'\n\tFrom animation clip 'HumanM@Attack2H01'\n\tFrom
-        animation clip 'HumanM@Attack1H01_R'\n\tand more ..."
+        'B-handProp.R'\n\tTransform 'B-handProp.L'\n\tFrom animation clip 'HumanM@Walk01_Forward'\n\tFrom
+        animation clip 'HumanM@Run01_Forward'\n\tFrom animation clip 'HumanM@Walk01_Backward'\n\tFrom
+        animation clip 'HumanM@Run01_Backward'\n\tFrom animation clip 'HumanM@StrafeRun01_Right'\n\tFrom
+        animation clip 'HumanM@StrafeRun01_Left'\n\tFrom animation clip 'HumanM@AttackPolearm01'\n\tFrom
+        animation clip 'HumanM@Attack2H01'\n\tFrom animation clip 'HumanM@Attack1H01_R'\n\tFrom
+        animation clip 'HumanM@AttackShield01'\n\tand more ..."
       objectReference: {fileID: 0}
     - target: {fileID: 6324964031785194476, guid: c8c8e3605f6241d428698b34839f2492, type: 3}
       propertyPath: m_Layer
@@ -1030,7 +1030,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 20f25f19f88b4cc40842f9347da09686, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 7352f3b99e9e4cc4895ae3f3ae350bb8, type: 2}
+      objectReference: {fileID: 2100000, guid: aa66ae78437d65c449a4fe381bd15bb2, type: 2}
     - target: {fileID: 919132149155446097, guid: 20f25f19f88b4cc40842f9347da09686, type: 3}
       propertyPath: m_Name
       value: spear

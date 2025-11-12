@@ -51,7 +51,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 6682bf7ca711c244583c03cd1726b6be, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 7352f3b99e9e4cc4895ae3f3ae350bb8, type: 2}
+      objectReference: {fileID: 2100000, guid: 6d9f2ee985c948a409837dae85994cff, type: 2}
     - target: {fileID: 919132149155446097, guid: 6682bf7ca711c244583c03cd1726b6be, type: 3}
       propertyPath: m_Name
       value: helmet02
@@ -141,6 +141,26 @@ PrefabInstance:
     - target: {fileID: 4317749222188884554, guid: d468cec9c6f9ed54bb24eaade9c20210, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4457511531900543713, guid: d468cec9c6f9ed54bb24eaade9c20210, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 6d9f2ee985c948a409837dae85994cff, type: 2}
+    - target: {fileID: 6773001818559818113, guid: d468cec9c6f9ed54bb24eaade9c20210, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 6d9f2ee985c948a409837dae85994cff, type: 2}
+    - target: {fileID: 6934886833448576219, guid: d468cec9c6f9ed54bb24eaade9c20210, type: 3}
+      propertyPath: m_WarningMessage
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are
+        already bound by a Humanoid avatar. These transforms can only be changed
+        by Humanoid clips.\n\tTransform 'B-handProp.R'\n\tTransform 'B-handProp.L'\n\tTransform
+        'B-handProp.R'\n\tTransform 'B-handProp.L'\n\tFrom animation clip 'HumanM@Walk01_Forward'\n\tFrom
+        animation clip 'HumanM@Run01_Forward'\n\tFrom animation clip 'HumanM@Walk01_Backward'\n\tFrom
+        animation clip 'HumanM@Run01_Backward'\n\tFrom animation clip 'HumanM@StrafeRun01_Right'\n\tFrom
+        animation clip 'HumanM@StrafeRun01_Left'\n\tFrom animation clip 'HumanM@AttackPolearm01'\n\tFrom
+        animation clip 'HumanM@Attack2H01'\n\tFrom animation clip 'HumanM@Attack1H01_R'\n\tFrom
+        animation clip 'HumanM@AttackShield01'\n\tand more ..."
       objectReference: {fileID: 0}
     - target: {fileID: 7284613674257100342, guid: d468cec9c6f9ed54bb24eaade9c20210, type: 3}
       propertyPath: _speed
