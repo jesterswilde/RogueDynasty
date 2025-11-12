@@ -60,7 +60,7 @@ public class UpgradeManager : SerializedMonoBehaviour {
         new() {
             ID = "SpeedIncreaseI",
             Title = "Speed Increase I",
-            Text = "Increase your speed by 1",
+            Text = "Increase your movement speed by 1",
             OnPurchase = (player)=> player.GetComponent<Character>().Speed += 1,
             Repeatable = true
         },
@@ -95,14 +95,14 @@ public class UpgradeManager : SerializedMonoBehaviour {
         },
         new() {
             ID = "CorpseDamage",
-            Title = "Lethal Corpoe Boom",
+            Title = "Lethal Corpse Boom",
             Text = "Your Corpse Explosion does more damage",
             OnPurchase = (player)=> GameManager.T.CorpseExplosionDamage += 3,
             Repeatable = true
         },
         new() {
             ID = "CorpseBoom",
-            Title = "Bigger Corpoe Boom",
+            Title = "Bigger Corpse Boom",
             Text = "Your Corpse Explose radius is bigger!",
             OnPurchase = (player)=> GameManager.T.CorpseExplosionRadius += 3,
             Repeatable = true
@@ -128,7 +128,7 @@ public class UpgradeManager : SerializedMonoBehaviour {
         },
         new() {
             ID = "BA4",
-            Title = "Attack: Slam",
+            Title = "Attack: Whirlwind",
             Text = "Gain 4th Attack in Basic Combo",
             RequiredIDs = new(){"BA3" },
             OnPurchase = (player) => {
@@ -148,7 +148,7 @@ public class UpgradeManager : SerializedMonoBehaviour {
         },
         new() {
             ID = "PA1",
-            Title = "Attack: Power Strick",
+            Title = "Attack: Power Strike",
             Text = "Gain 1st Power Attack. A strong forward thrust.",
             OnPurchase = (player) => {
                 var attack = T.GetAttackByName("p1");

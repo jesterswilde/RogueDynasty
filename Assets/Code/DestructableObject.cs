@@ -34,6 +34,7 @@ public class DestructableObject : MonoBehaviour, IHittable {
             GameManager.T.PlayAudio(_hitSound);
         }
         else if (_health <= 0) {
+            GameManager.T.PlayAudio(_destroyedSound);
             transform.SetParent(null, worldPositionStays: true);
 
             var sliced = gameObject.SliceInstantiate(
@@ -121,10 +122,12 @@ public class DestructableObject : MonoBehaviour, IHittable {
                 // Make this slice destructible too
                 var dest = s.AddComponent<DestructableObject>();
                 dest._maxHealth = (_maxHealth / 2f) + 1f;
+                dest._health = (_maxHealth / 2f) + 1f;
                 dest._breakVelocity = _breakVelocity;
                 dest._lastPos = s.transform.position;
                 dir *= -1;
-                var nextDepth = _soundToDepth--;
+                var nextDepth = _soundToDepth - 1;
+                dest._soundToDepth = nextDepth;
                 if (nextDepth >= 0) {
                     dest._soundToDepth = nextDepth;
                     dest._hitSound = _hitSound;

@@ -24,23 +24,23 @@ MonoBehaviour:
   Num: 3
   Die: 6
   Entries:
-  - AttackType: 0
+  - DC: 17
+    AttackType: 0
+    Info: 
     Combo: 000000000000000000000000000000000000000000000000
-    DC: 17
+  - DC: 14
+    AttackType: 0
     Info: 
-  - AttackType: 0
     Combo: 000000000000000000000000
-    DC: 14
+  - DC: 9
+    AttackType: 0
     Info: 
-  - AttackType: 0
     Combo: 01000000
-    DC: 9
+  - DC: 4
+    AttackType: 0
     Info: 
-  - AttackType: 0
     Combo: 0000000000000000
-    DC: 6
+  - DC: 0
+    AttackType: 0
     Info: 
-  - AttackType: 0
     Combo: 
-    DC: 0
-    Info: 

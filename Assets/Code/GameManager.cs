@@ -73,6 +73,7 @@ public class GameManager : MonoBehaviour {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             UIManager.T.CloseScreen();
+            UpgradeManager.T.PickedUpgrade(c.ID);
         });
     }
     public event Action<int> OnKill;

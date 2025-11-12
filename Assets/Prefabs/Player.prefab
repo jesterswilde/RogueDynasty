@@ -516,7 +516,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 6.5
   _jumpSpeed: 10
-  _maxHealth: 75
+  _maxHealth: 40
   _health: 0
   _groundDetector: {fileID: 7988604255726257015}
   _groundMask:
@@ -529,7 +529,7 @@ MonoBehaviour:
   _damangeStackingDuration: 2
   _gotHitNoise: {fileID: 0}
   _gotStunnedNoise: {fileID: 8300000, guid: 99a0a853daa9ba44ebdbd622708da5f3, type: 3}
-  _deathSound: {fileID: 0}
+  _deathSound: {fileID: 8300000, guid: 020b0668caac8014f82dc2d8d4d1ad85, type: 3}
 --- !u!54 &4806957961265686404
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -78,7 +78,7 @@ MonoBehaviour:
   _faceEnemyDist: 5
   _attackTable: {fileID: 11400000, guid: c98ddefc5e817ff4b81353309d96c1a3, type: 2}
   _attackInterval: {x: 3, y: 5}
-  _maxAttackRange: 4
+  _maxAttackRange: 5
 --- !u!114 &7284613674257100342
 MonoBehaviour:
   m_ObjectHideFlags: 0

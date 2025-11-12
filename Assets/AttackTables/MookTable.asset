@@ -24,11 +24,11 @@ MonoBehaviour:
   Num: 1
   Die: 20
   Entries:
-  - DC: 17
+  - DC: 16
     AttackType: 0
     Info: 
     Combo: 01000000
-  - DC: 10
+  - DC: 8
     AttackType: 0
     Info: 
     Combo: 00000000
