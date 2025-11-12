@@ -2,12 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
 
-public class UpgradeManager : MonoBehaviour {
+public class UpgradeManager : SerializedMonoBehaviour {
     static UpgradeManager t;
     [SerializeField]
     float _initialPlayerSpeed = 0.8f;
