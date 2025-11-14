@@ -12,26 +12,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53b65bd3371aa22408125d1551c93b01, type: 3}
   m_Name: MinimapConfig
   m_EditorClassIdentifier: 
-  _renderTexture: {fileID: 0}
+  _renderTexture: {fileID: 8600000, guid: 6ef783f18935f2c4ba12a907d8fd2900, type: 2}
   _groundLayerMask:
     serializedVersion: 2
-    m_Bits: 0
-  _cameraHeight: 60
-  _orthographicSize: 30
+    m_Bits: 256
+  _cameraHeight: 8.4
+  _orthographicSize: 81.2
   _cameraOffset: {x: 0, y: 0, z: 0}
   _followLerp: 0.2
   _lockToWorldNorth: 1
-  _backgroundColor: {r: 0, g: 0, b: 0, a: 0}
-  _iconEdgePadding: 4
+  _backgroundColor: {r: 0, g: 0, b: 0, a: 1}
+  _iconEdgePadding: 2
   _playerStyle:
     Color: {r: 0, g: 0, b: 1, a: 1}
-    Diameter: 14
+    Diameter: 8
   _enemyStyle:
     Color: {r: 1, g: 0, b: 0, a: 1}
-    Diameter: 10
+    Diameter: 6
   _healthPotStyle:
     Color: {r: 0, g: 1, b: 0, a: 1}
-    Diameter: 8
+    Diameter: 4
   _upgradeStyle:
     Color: {r: 0, g: 1, b: 0, a: 1}
-    Diameter: 8
+    Diameter: 4
+  _showPlayerDirectionCone: 1
+  _playerDirectionColor: {r: 0, g: 0.6, b: 1, a: 0.3}
+  _playerDirectionAngle: 70
+  _playerDirectionLength: 80
