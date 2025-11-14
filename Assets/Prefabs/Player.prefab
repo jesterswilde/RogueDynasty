@@ -875,11 +875,23 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8319419117901743189, guid: 7721be304d38cfb43b379c10451ef335, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 68c60799684a94e4093b46a52d31dfea, type: 2}
+    - target: {fileID: -1852309143849916340, guid: 7721be304d38cfb43b379c10451ef335, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 68c60799684a94e4093b46a52d31dfea, type: 2}
     - target: {fileID: 919132149155446097, guid: 7721be304d38cfb43b379c10451ef335, type: 3}
       propertyPath: m_Name
       value: main_character
       objectReference: {fileID: 0}
     - target: {fileID: 2120792686214971631, guid: 7721be304d38cfb43b379c10451ef335, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 68c60799684a94e4093b46a52d31dfea, type: 2}
+    - target: {fileID: 4320098735860348617, guid: 7721be304d38cfb43b379c10451ef335, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 68c60799684a94e4093b46a52d31dfea, type: 2}
@@ -893,11 +905,11 @@ PrefabInstance:
         already bound by a Humanoid avatar. These transforms can only be changed
         by Humanoid clips.\n\tTransform 'B-handProp.R'\n\tTransform 'B-handProp.L'\n\tTransform
         'B-handProp.R'\n\tTransform 'B-handProp.L'\n\tFrom animation clip 'HumanM@Walk01_Forward'\n\tFrom
-        animation clip 'HumanM@Run01_Forward'\n\tFrom animation clip 'HumanM@Walk01_Backward'\n\tFrom
-        animation clip 'HumanM@Run01_Backward'\n\tFrom animation clip 'HumanM@StrafeRun01_Right'\n\tFrom
-        animation clip 'HumanM@StrafeRun01_Left'\n\tFrom animation clip 'HumanM@AttackPolearm01'\n\tFrom
-        animation clip 'HumanM@Attack2H01'\n\tFrom animation clip 'HumanM@Attack1H01_R'\n\tFrom
-        animation clip 'HumanM@AttackShield01'\n\tand more ..."
+        animation clip 'HumanM@Walk01_Backward'\n\tFrom animation clip 'HumanM@Run01_Backward'\n\tFrom
+        animation clip 'HumanM@StrafeRun01_Right'\n\tFrom animation clip 'HumanM@StrafeRun01_Left'\n\tFrom
+        animation clip 'HumanM@AttackPolearm01'\n\tFrom animation clip 'HumanM@Attack2H01'\n\tFrom
+        animation clip 'HumanM@Attack1H01_R'\n\tFrom animation clip 'HumanM@AttackShield01'\n\tFrom
+        animation clip 'HumanM@MagicAttackCall1H01_L'\n\tand more ..."
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
