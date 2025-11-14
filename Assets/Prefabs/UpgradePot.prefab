@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 9152352941888846081}
   - component: {fileID: 3588625105704626760}
   - component: {fileID: 4073072834850898199}
+  - component: {fileID: 977018116983285775}
   m_Layer: 0
   m_Name: UpgradePot
   m_TagString: Untagged
@@ -114,6 +115,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _clip: {fileID: 0}
+--- !u!114 &977018116983285775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 920144679210790139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b9be4beb80cdad4abb16ebe8a23803c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _iconType: 3
+  _overrideColor: 0
+  _colorOverride: {r: 1, g: 1, b: 1, a: 1}
+  _overrideSize: 0
+  _sizeOverride: 8
+  _trackedTransform: {fileID: 0}
+  _heightOffset: 0
 --- !u!1 &7660414258984715288
 GameObject:
   m_ObjectHideFlags: 0

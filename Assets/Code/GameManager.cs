@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour {
     public Config Config => _config;
     Player _player;
     public Player Player => _player;
+    [SerializeField]
     Camera _camera;
     public Camera Cam => _camera;
     int _kill = 0;
@@ -143,7 +144,6 @@ public class GameManager : MonoBehaviour {
         t = this;
 
         _audio = GetComponent<AudioSource>();
-        _camera = FindFirstObjectByType<Camera>();
         _player = FindFirstObjectByType<Player>();
         _kill = 0;
     }

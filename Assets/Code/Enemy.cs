@@ -8,6 +8,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(MinimapIcon))]
 public class Enemy : MonoBehaviour {
     [FoldoutGroup("Path & Swarm"), SerializeField]
     Transform _eyePos;
@@ -35,6 +36,7 @@ public class Enemy : MonoBehaviour {
     Transform _target;
     bool _hasGoal;
     Animator _anim;
+    MinimapIcon _minimapIcon;
 
     [SerializeField]
     AttackTable _attackTable;
@@ -322,5 +324,10 @@ public class Enemy : MonoBehaviour {
         _agent.angularSpeed = 360f;
         _agent.acceleration = 100f;
         _anim = GetComponentInChildren<Animator>();
+        _minimapIcon = GetComponent<MinimapIcon>();
+        if (_minimapIcon == null)
+            Debug.LogWarning($"Enemy {name} is missing a MinimapIcon component");
+        else
+            _minimapIcon.SetIconType(MinimapIconType.Enemy);
     }
 }

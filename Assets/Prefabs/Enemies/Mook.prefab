@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7284613674257100342}
   - component: {fileID: 7880559512688185172}
   - component: {fileID: 1516191936469952897}
+  - component: {fileID: 580755049353912665}
   m_Layer: 7
   m_Name: Mook
   m_TagString: Untagged
@@ -156,6 +157,25 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &580755049353912665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 266610934931471122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b9be4beb80cdad4abb16ebe8a23803c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _iconType: 1
+  _overrideColor: 0
+  _colorOverride: {r: 1, g: 1, b: 1, a: 1}
+  _overrideSize: 0
+  _sizeOverride: 8
+  _trackedTransform: {fileID: 0}
+  _heightOffset: 1
 --- !u!1 &5649904480063535967
 GameObject:
   m_ObjectHideFlags: 0

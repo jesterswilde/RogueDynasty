@@ -3,10 +3,12 @@ using UnityEngine;
 using UnityEngine.Video;
 
 [RequireComponent(typeof(Character))]
+[RequireComponent(typeof(MinimapIcon))]
 public class Player : MonoBehaviour {
     Character _char;
     Animator _anim;
     Attacker _attacker;
+    MinimapIcon _minimapIcon;
     public Character Char => _char;
     void UpdateHealthUI(float health) {
         UIManager.T.UpdateHealth(health, _char.MaxHealth);
@@ -51,9 +53,14 @@ public class Player : MonoBehaviour {
         _char = GetComponent<Character>();
         _anim = GetComponentInChildren<Animator>();
         _attacker = GetComponentInChildren<Attacker>();
+        _minimapIcon = GetComponent<MinimapIcon>();
         if (_anim == null)
             Debug.LogWarning($"Player doesn't ahve animator as achild");
         if (_attacker == null)
             Debug.LogWarning($"Player doesn't ahve attacker as achild or on it");
+        if (_minimapIcon == null)
+            Debug.LogWarning("Player is missing a MinimapIcon component");
+        else
+            _minimapIcon.SetIconType(MinimapIconType.Player);
     }
 }
