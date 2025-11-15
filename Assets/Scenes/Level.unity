@@ -3989,6 +3989,10 @@ PrefabInstance:
       propertyPath: _camera
       value: 
       objectReference: {fileID: 330585545}
+    - target: {fileID: 3787205712682074467, guid: 7ad2a606db5d4f7468e79a17676e2785, type: 3}
+      propertyPath: m_Volume
+      value: 0.306
+      objectReference: {fileID: 0}
     - target: {fileID: 6092430838211558181, guid: 7ad2a606db5d4f7468e79a17676e2785, type: 3}
       propertyPath: serializationData.Prefab
       value: 
